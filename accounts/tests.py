@@ -14,7 +14,7 @@ class CustomUserTests(TestCase):
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
-        self.assertEqual(user.role, "lector")  # Verifica que el rol por defecto sea 'lector'[reference:0]
+        self.assertEqual(user.role, "reader")  # Verifica que el rol por defecto sea 'lector'[reference:0]
 
     def test_create_superuser(self):
         User = get_user_model()
