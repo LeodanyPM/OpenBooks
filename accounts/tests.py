@@ -63,7 +63,7 @@ class RegisterViewTests(TestCase):
             "password2": "differentpass",
         })
         self.assertEqual(response.status_code, 200)
-        # ✅ Verifica que el mensaje de error esté en el HTML
+        #Verifica que el mensaje de error este en el HTML
         self.assertContains(response, "The two password fields didn’t match.")
         self.assertEqual(get_user_model().objects.count(), initial_count)
 
@@ -91,7 +91,7 @@ class LoginLogoutTests(TestCase):
             "password": "testpass123"
         })
         self.assertRedirects(response, self.home_url)
-        # Verificar que el usuario está autenticado
+        # Verificar que el usuario esta autenticado
         self.assertTrue(self.client.session.get('_auth_user_id'))
 
     def test_login_fail(self):
