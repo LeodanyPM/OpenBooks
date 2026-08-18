@@ -1,0 +1,41 @@
+Notas sobre los test de modelos books:
+"""# 
+Los modelos cubren bien el núcleo del proyecto:
+
+- estado de publicación;
+- licencia;
+- relación con usuario;
+- revisión;
+- validaciones básicas;
+- archivo;
+- valoraciones.
+
+Y los tests están bien enfocados porque prueban exactamente el comportamiento importante de los modelos:
+
+- libros públicos solo si están aprobados;
+- métodos `approve()` y `reject()`;
+- visibilidad con `can_view()`;
+- validaciones de `clean()`;
+- validación de extensión de archivo;
+- valoraciones válidas;
+- bloqueo de valoración al propio libro;
+- bloqueo de valoración en libros pendientes;
+- rango de puntuación;
+- unicidad de valoración por usuario y libro.
+
+La estructura con `BookTestMixin`, `book_data()` y `create_book()` quedó limpia y evita repetición innecesaria.
+
+Un detalle conceptual importante:
+
+- `clean()` no se ejecuta automáticamente con `save()`;
+- por eso tiene sentido que algunos tests usen `book.clean()`;
+- y que el test de archivo use `book.full_clean()` para activar validadores de campo.
+
+También está bien que `create_pdf()` no sea un PDF real, porque para estos tests de modelos es suficiente para probar rutas, validación básica 
+y creación de objetos.
+En resumen:
+
+> Los modelos son simples, coherentes y suficientes para esta versión del proyecto.  
+> Los tests son claros, están bien factorizados y cubren las reglas principales del dominio.
+
+Si los 16 tests pasan, esta base está en muy buen estado."""

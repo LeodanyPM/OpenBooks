@@ -85,7 +85,7 @@ class LoginLogoutTests(TestCase):
         self.assertTemplateUsed(response, "registration/login.html")
 
     def test_login_success(self):
-        """POST con credenciales correctas redirige a home (LOGIN_REDIRECT_URL)."""
+        """POST con credenciales correctas redirige a home."""
         response = self.client.post(self.login_url, {
             "username": "testuser",
             "password": "testpass123"
