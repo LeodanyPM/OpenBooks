@@ -1,7 +1,16 @@
 {% extends "_base.html" %}
 {% load static %}
-{% block title %}Home{% endblock title %}
+
 {% block content %}
-    <h1>This is home page.</h1>
-    
-{% endblock content %}
+<div id="books-grid" class="row"></div>
+
+<div class="text-center my-3">
+    <button id="show-more-btn" class="btn btn-secondary d-none">
+        Show More
+    </button>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
