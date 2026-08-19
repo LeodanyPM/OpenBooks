@@ -22,7 +22,7 @@ def validate_book_file_size(value):
 def book_file_path(instance, filename):
     """
     Guarda archivos con nombre único.
-    Ejemplo: media/books/3/a1b2c3d4.pdf
+    Ejemplo: media/books_file/a1b2c3d4.pdf
     """
     ext = os.path.splitext(filename)[1].lower()
     if ext not in (".pdf", ".epub"):
@@ -31,7 +31,7 @@ def book_file_path(instance, filename):
     user_id = instance.uploaded_by_id or "unassigned"
     unique_name = f"{uuid.uuid4().hex}{ext}"
 
-    return f"books/{user_id}/{unique_name}"
+    return f"books_file/{unique_name}"
 
 # Book #
 
