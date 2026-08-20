@@ -1,16 +1,11 @@
 {% extends "_base.html" %}
-{% load static %}
+
+{% block title %}Home - OpenBook{% endblock %}
 
 {% block content %}
-<div id="books-grid" class="row"></div>
-
-<div class="text-center my-3">
-    <button id="show-more-btn" class="btn btn-secondary d-none">
-        Show More
-    </button>
+<div class="text-center my-5">
+    <h1>Welcome to OpenBook</h1>
+    <p class="lead">A collaborative platform for sharing and discovering books.</p>
+    <a href="{% url 'explore' %}" class="btn btn-primary btn-lg">Start Exploring</a>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

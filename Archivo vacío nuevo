@@ -39,3 +39,206 @@ En resumen:
 > Los tests son claros, están bien factorizados y cubren las reglas principales del dominio.
 
 Si los 16 tests pasan, esta base está en muy buen estado."""
+
+Desiscion sobre AVG Ratin:
+# Respuesta corta
+
+Para tu proyecto actual, **calcular el promedio dinámicamente con `Avg()` es suficiente y bastante eficiente**.
+
+Guardarlo en la base de datos puede ser más rápido para leer, pero también añade complejidad, riesgo de inconsistencia y trabajo extra de mantenimiento.
+
+---
+
+# Comparación
+
+## Calcularlo dinámicamente
+
+Esto es lo que estás haciendo ahora:
+
+```python
+annotate(rating_avg=Avg("ratings__score"))
+```
+
+Ventajas:
+
+- el promedio siempre está actualizado;
+- no hay que sincronizar datos;
+- no necesitas señales;
+- no necesitas actualizar el libro cada vez que alguien puntúa;
+- menos riesgo de bugs;
+- suficiente para proyectos pequeños o medianos;
+- la base de datos suele hacer estos cálculos bastante bien.
+
+Desventajas:
+
+- cada consulta de listado o detalle hace el cálculo;
+- si hay muchísimas valoraciones, puede volverse más costoso;
+- ordenar por promedio puede ser más lento si no está guardado.
+
+---
+
+## Guardarlo en el modelo
+
+Por ejemplo, tener campos como:
+
+```text
+avg_rating
+rating_count
+```
+
+Ventajas:
+
+- leer el promedio es muy rápido;
+- ordenar libros por puntuación es más simple;
+- filtrar por puntuación es más eficiente;
+- útil si el catálogo crece mucho;
+- evita recalcular en cada request.
+
+Desventajas:
+
+- hay que actualizar el promedio cada vez que se crea una valoración;
+- también hay que actualizarlo si se edita;
+- también hay que actualizarlo si se borra;
+- puede haber inconsistencias si falta algún caso;
+- hay que manejar concurrencia;
+- requiere más tests;
+- añade complejidad al proyecto.
+
+---
+
+# ¿Qué es más eficiente?
+
+Depende del contexto.
+
+## En lectura
+
+Guardar el promedio es más eficiente.
+
+Simplemente lees un campo:
+
+```text
+book.avg_rating
+```
+
+en lugar de calcular:
+
+```sql
+AVG(score)
+```
+
+---
+
+## En escritura
+
+Calcularlo dinámicamente es más simple y seguro.
+
+Guardarlo implica hacer trabajo extra cada vez que alguien crea, edita o borra una valoración.
+
+---
+
+## En consistencia
+
+Calcularlo dinámicamente gana claramente.
+
+Si guardas el promedio, tienes que asegurarte de que nunca quede desactualizado.
+
+Por ejemplo:
+
+- se crea una valoración;
+- se edita una valoración;
+- se elimina una valoración;
+- se elimina un usuario;
+- se elimina un libro;
+- se hacen operaciones masivas desde admin;
+- se crean valoraciones desde shell o tests.
+
+Todos esos casos deberían mantener el promedio correcto.
+
+---
+
+# Recomendación para tu proyecto
+
+Para CS50 y para esta versión de la API, yo mantendría el cálculo dinámico.
+
+Razones:
+
+- tu catálogo no debería ser masivo;
+- la lógica se mantiene simple;
+- evitas inconsistencias;
+- el promedio siempre es correcto;
+- la API sigue siendo limpia;
+- puedes demostrar buen uso del ORM con `annotate()`.
+
+---
+
+# Cuándo sí convendría guardarlo
+
+Lo consideraría si más adelante tienes:
+
+- miles o decenas de miles de libros;
+- muchísimas valoraciones;
+- listado público muy visitado;
+- ordenamiento frecuente por puntuación;
+- filtros por puntuación;
+- estadísticas públicas;
+- necesidad de optimizar rendimiento.
+
+En ese caso, agregaría campos como:
+
+```text
+avg_rating
+rating_count
+```
+
+y los actualizaría mediante señales o lógica en el modelo.
+
+---
+
+# Estrategia recomendada
+
+Yo haría esto por fases.
+
+## Fase actual
+
+Mantener:
+
+```python
+Avg("ratings__score")
+```
+
+Es simple, correcto y suficiente.
+
+---
+
+## Fase futura, si hace falta
+
+Agregar al modelo:
+
+```text
+avg_rating
+rating_count
+```
+
+Y actualizar esos campos cuando:
+
+- se crea una valoración;
+- se borra una valoración;
+- se edita una valoración.
+
+Luego cambiar el serializador para leer directamente esos campos.
+
+---
+
+# Conclusión
+
+Para tu fase 1:
+
+> El cálculo dinámico está bien y es eficiente suficiente.
+
+Para una versión más grande:
+
+> Guardar el promedio puede ser más rápido, pero añade complejidad.
+
+Mi recomendación es:
+
+> **No lo guardes todavía. Mantén el promedio calculado con `Avg()`. Si más adelante el proyecto lo necesita, lo optimizas guardándolo en el modelo.**

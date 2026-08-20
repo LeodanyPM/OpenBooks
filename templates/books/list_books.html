@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Explore - OpenBook{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Explore Books</h1>
+
+<div id="books-grid" class="row"></div>
+
+<div class="text-center my-3">
+    <button id="show-more-btn" class="btn btn-secondary d-none">
+        Show More
+    </button>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/list_books.js' %}"></script>
+{% endblock %}

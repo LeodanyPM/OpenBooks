@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}OpenBook{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">OpenBook</a>
+            <a class="navbar-brand" href="{% url 'home' %}">OpenBook</a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -19,23 +20,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'explore' %}">Explore</a>
                     </li>
                     
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <button id="explore-btn" type="button" class="btn btn-link nav-link">
-                                Explore
-                            </button>
+                            <a class="nav-link" href="{% url 'home' %}">My Books</a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Profile</a>
+                            <a class="nav-link" href="{% url 'home' %}">Upload</a>
                         </li>
                         
                         {% if user.is_staff or perms.books.review_book %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Moderate</a>
+                                <a class="nav-link" href="{% url 'home' %}">Moderate</a>
                             </li>
                         {% endif %}
                         
@@ -84,8 +87,8 @@
         {% block content %}{% endblock %}
     </main>
         
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-   {% block extra_js %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
     
 </body>
 </html>
