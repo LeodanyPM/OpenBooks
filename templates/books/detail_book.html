@@ -1,0 +1,80 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Detalle del libro - OpenBook{% endblock %}
+
+{% block content %}
+<div id="book-detail">
+    <div id="loading" class="text-center my-5">
+        <p>Cargando libro...</p>
+    </div>
+    <div id="book-content" class="d-none">
+        <div class="row">
+            <!-- portada -->
+            <div class="col-md-4 mb-3">
+                <div class="bg-white border" style="height: 300px;"></div>
+            </div>
+            <div class="col-md-8">
+                <h1 id="book-title"></h1>
+                <h4 id="book-author" class="text-muted"></h4>
+
+                <div class="my-3">
+                    <strong>Rating:</strong>
+                    <span id="book-rating"></span>
+                </div>
+
+                <div class="my-3">
+                    <strong>Licencia:</strong>
+                    <span id="book-license"></span>
+                </div>
+
+                <div class="my-3">
+                    <strong>Descripción:</strong>
+                    <p id="book-description"></p>
+                </div>
+
+                <div class="my-3 d-flex gap-2">
+                    <button id="read-btn" class="btn btn-primary">Read</button>
+                    <button id="report-btn" class="btn btn-outline-danger">Reportar</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Formulario de valoración -->
+        <div id="rating-form-container" class="my-4">
+            <h4>Deja tu valoración</h4>
+            <form id="rating-form">
+                <div class="mb-3">
+                    <label for="rating-score" class="form-label">Puntuación (1-5)</label>
+                    <select id="rating-score" class="form-select" required>
+                        <option value="">Selecciona...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="rating-comment" class="form-label">Comentario</label>
+                    <textarea id="rating-comment" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Enviar valoración</button>
+                <div id="rating-message" class="mt-2"></div>
+            </form>
+        </div>
+
+        <hr>
+
+        <!-- Lista de valoraciones -->
+        <div class="my-4">
+            <h4>Valoraciones de usuarios</h4>
+            <div id="ratings-list"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/detail_book.js' %}"></script>
+{% endblock %}

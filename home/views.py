@@ -6,3 +6,6 @@ class HomeView(TemplateView):
     
 class ExploreView(TemplateView):
     template_name = "books/list_books.html"
+
+class BookDetailView(TemplateView):
+    template_name = "books/detail_book.html"
