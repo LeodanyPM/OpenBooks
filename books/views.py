@@ -1,5 +1,6 @@
 from django.db.models import Avg
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+from django.views.generic import ListView
 
 from .models import Book
 from .serializers import BookListSerializer, BookDetailSerializer
@@ -20,6 +21,18 @@ class PublicBookDetailView(RetrieveAPIView):
     lookup_field = "pk"
 
     def get_queryset(self):
-        return (Book.public_books()
-                .annotate(rating_avg=Avg("ratings__score"))
-                )
+        return Book.public_books().annotate(rating_avg=Avg("ratings__score"))
+                
+class BookListView(ListView):
+    template_name = "explore.html"
+    context_object_name = "books"
+    paginate_by = 1
+    ordering = ["-created_at"]
+
+    def get_queryset(self):
+        return Book.public_books().annotate(rating=Avg("ratings__score"))
+
+    def get_template_names(self):
+        if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return ["books/list_books.html"]
+        return [self.template_name]

@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Explore - OpenBook{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Explore Books</h1>
+
+<div id="books-grid" class="row">
+    {% include "books/list_books.html" %}
+</div>
+
+{% if page_obj.has_next %}
+<div class="text-center my-3">
+    <button id="show-more-btn"
+            class="btn btn-secondary"
+            data-last-page="{{ page_obj.paginator.num_pages }}"
+            data-next-page="{{ page_obj.next_page_number }}">
+        Show More
+    </button>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/list_books.js' %}"></script>
+{% endblock %}

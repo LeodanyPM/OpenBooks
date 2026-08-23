@@ -1,50 +1,38 @@
-const API_URL = "/api/books/?ordering=-created_at";
-let nextUrl = API_URL;
-let loading = false;
-
-function loadBooks() {
-    const booksGrid = document.querySelector("#books-grid");
-    const showMoreBtn = document.querySelector("#show-more-btn");
-    if (!booksGrid || !showMoreBtn) {
-        return;}
-    if (!nextUrl || loading) {
-        return;}
-
-    loading = true;
-    showMoreBtn.disabled = true;
-
-    fetchBooks(nextUrl)
-        .then(data => {
-            const books = Array.isArray(data) ? data : data.results || [];
-            
-            books.forEach(book => {
-                booksGrid.appendChild(createBookCard(book)); });
-            nextUrl = data.next || null;
-            if (nextUrl) {
-                showMoreBtn.classList.remove("d-none");
-            } else {
-                showMoreBtn.classList.add("d-none");
-            }})
-        .catch(error => {
-            console.error(error);})
-        .finally(() => {
-            loading = false;
-            showMoreBtn.disabled = false;});
-}
-
-function handleBookClick(event) {
-    const bookCard = event.target.closest(".book-card");
-    if (bookCard) {
-        const bookId = bookCard.dataset.bookId;
-        console.log(`Libro clickeado: ID ${bookId}`);}
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-    loadBooks();
-    const showMoreBtn = document.querySelector("#show-more-btn");
-    if (showMoreBtn) {
-        showMoreBtn.addEventListener("click", loadBooks);}
-    const booksGrid = document.querySelector("#books-grid");
-    if (booksGrid) {
-        booksGrid.addEventListener("click", handleBookClick);}
+    const showMoreBtn = document.getElementById("show-more-btn");
+    const booksGrid = document.getElementById("books-grid");
+
+    if (!showMoreBtn) return;
+
+    showMoreBtn.addEventListener("click", () => {
+        const nextPage = showMoreBtn.dataset.nextPage;
+        const lastPage =  showMoreBtn.dataset.lastPage;
+
+        showMoreBtn.disabled = true;
+        showMoreBtn.textContent = "Cargando...";
+        
+        fetch(`?page=${nextPage}`, {
+            headers: { "X-Requested-With": "XMLHttpRequest" }})
+        .then(response => {
+            if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+            return response.text();})
+        .then(html => {
+            booksGrid.insertAdjacentHTML("beforeend", html);
+
+            const next = parseInt(nextPage) + 1;
+            
+
+            if (nextPage == lastPage) {
+                showMoreBtn.disabled = true;
+                showMoreBtn.textContent = "No more books";
+                showMoreBtn.classList.replace("btn-secondary", "btn-outline-secondary");
+            } else {
+                showMoreBtn.dataset.nextPage = next;
+                showMoreBtn.disabled = false;
+                showMoreBtn.textContent = "Show More";}})
+        .catch(error => {
+            console.error(error);
+            showMoreBtn.disabled = false;
+            showMoreBtn.textContent = "Reintentar";
+        });});
 });

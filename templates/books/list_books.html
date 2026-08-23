@@ -1,20 +1,20 @@
-{% extends "_base.html" %}
-{% load static %}
+{% load book_tags %}
 
-{% block title %}Explore - OpenBook{% endblock %}
-
-{% block content %}
-<h1 class="mb-4">Explore Books</h1>
-
-<div id="books-grid" class="row"></div>
-
-<div class="text-center my-3">
-    <button id="show-more-btn" class="btn btn-secondary d-none">
-        Show More
-    </button>
+{% for book in books %}
+<div class="col-md-4 mb-3">
+    <a href="#" class="text-decoration-none text-dark">
+        <div class="card h-100 book-card">
+            <div class="bg-white border" style="height: 180px;"></div>
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text text-muted">{{ book.author }}</p>
+                <p class="card-text">{{ book.rating|stars|safe }}</p>
+            </div>
+        </div>
+    </a>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/list_books.js' %}"></script>
-{% endblock %}
+{% empty %}
+<div class="col-12">
+    <p class="text-muted">Aún no hay libros disponibles.</p>
+</div>
+{% endfor %}
