@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import serializers
 
-from .models import Book
+from .models import Book, Rating
 
 
 class BookListSerializer(serializers.ModelSerializer):
@@ -78,3 +78,11 @@ class BookDetailSerializer(serializers.ModelSerializer):
 
     def get_read_url(self, obj):
         return None
+
+class RatingSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source="user.username", read_only=True)
+
+    class Meta:
+        model = Rating
+        fields = ["id", "user", "score", "comment", "created_at"]
+        read_only_fields = ["user", "created_at"]

@@ -1,9 +1,8 @@
 from django.db.models import Avg
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView
 from django.views.generic import ListView, DetailView
-
-from .models import Book
-from .serializers import BookListSerializer, BookDetailSerializer
+from .models import Book, Rating
+from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer
 
 
 class PublicBookListView(ListAPIView):
@@ -22,6 +21,18 @@ class PublicBookDetailView(RetrieveAPIView):
 
     def get_queryset(self):
         return Book.public_books().annotate(rating_avg=Avg("ratings__score"))
+        
+class RatingListCreateView(ListCreateAPIView):
+    serializer_class = RatingSerializer
+
+    def get_queryset(self):
+        return Rating.objects.filter(book_id=self.kwargs["pk"])
+
+    def perform_create(self, serializer):
+        serializer.save(
+            book_id=self.kwargs["pk"],
+            user=self.request.user
+        )
                 
 class BookListView(ListView):
     template_name = "explore.html"

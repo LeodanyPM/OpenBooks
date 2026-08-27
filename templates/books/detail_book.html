@@ -46,6 +46,7 @@
 <div class="my-4">
     <h4>Leave your rating</h4>
     <form id="rating-form">
+        {% csrf_token %}
         <div class="mb-3">
             <label for="rating-score" class="form-label">Stars</label>
             <select id="rating-score" class="form-select" required>
@@ -55,6 +56,7 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+
             </select>
         </div>
         <div class="mb-3">
