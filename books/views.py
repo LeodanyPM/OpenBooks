@@ -1,6 +1,6 @@
 from django.db.models import Avg
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .models import Book
 from .serializers import BookListSerializer, BookDetailSerializer
@@ -36,3 +36,11 @@ class BookListView(ListView):
         if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return ["books/list_books.html"]
         return [self.template_name]
+        
+class BookDetailView(DetailView):
+    model = Book
+    template_name = "books/detail_book.html"
+    context_object_name = "book"
+
+    def get_queryset(self):
+        return Book.objects.annotate(rating=Avg("ratings__score")).prefetch_related("ratings__user")
