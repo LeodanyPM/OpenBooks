@@ -4,19 +4,17 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function createBookCard(book) {
-    const col = document.createElement("div");
-    col.className = "col-md-4 mb-3";
 
-    col.innerHTML = `
-        <div class="card h-100 book-card" data-book-id="${book.id}" style="cursor: pointer;">
-            <div class="bg-white border" style="height: 180px;"></div>
-            <div class="card-body">
-                <h5 class="card-title">${escapeHtml(book.title)}</h5>
-                <p class="card-text">${escapeHtml(book.author)}</p>
-                <p class="card-text">Rating: ${escapeHtml(book.rating || 0)}</p>
-            </div>
-        </div>  `;
+const STAR_RATINGS = {
+                    1:'★☆☆☆☆',
+                    2:'★★☆☆☆',
+                    3:'★★★☆☆',
+                    4:'★★★★☆',
+                    5:'★★★★★'
+                     }
+function ratingToStars(score){
+    const rounded = Math.round(score) || 0;
+    const stars = STAR_RATINGS[rounded] || '☆☆☆☆☆'
+    return `<span style="color:gold;">${stars}</span>`;
+                    }
 
-    return col;
-}
