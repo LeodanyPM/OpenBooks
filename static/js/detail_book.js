@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ratingForm) {
         ratingForm.addEventListener("submit", handleRatingSubmit);
     }
-
     if (reportBtn) {
         reportBtn.addEventListener("click", handleReportClick);
     }
@@ -14,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function submitRating(bookId, ratingData) {
     const url = `/api/books/${bookId}/ratings/`;
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    console.log(csrfToken);
+    
     return fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json",
@@ -36,25 +35,28 @@ function handleRatingSubmit(event) {
     event.preventDefault();
     console.log("Send");
     const score = document.getElementById("rating-score").value;
-    const comment = document.getElementById("rating-comment").value;
+    const comment = document.getElementById("rating-comment").value.trim();
     const messageDiv = document.getElementById("rating-message");
 
     if (!score) {
         messageDiv.innerHTML = "<span class='text-danger'>Select a rating.</span>";
         return;
     }
-
-    messageDiv.innerHTML = "<span class='text-muted'>Sending...</span>";
-
-    submitRating(BOOK_ID, { score: parseInt(score), comment: comment })
-        .then(newRating => {
-            messageDiv.innerHTML = "<span class='text-success'>Rating submitted.</span>";
-            document.getElementById("rating-form").reset();
-            appendRating(newRating);
-        })
-        .catch(error => {
-            messageDiv.innerHTML = `<span class='text-danger'>${escapeHtml(error.message)}</span>`;
-        });
+    if (!comment){
+        messageDiv.innerHTML = "<span class='text-danger'> Please write a comment. </span>";
+    }
+    else{
+        messageDiv.innerHTML = "<span class='text-muted'>Sending...</span>";
+        submitRating(BOOK_ID, { score: parseInt(score), comment: comment })
+            .then(newRating => {
+                messageDiv.innerHTML = "<span class='text-success'>Rating submitted.</span>";
+                document.getElementById("rating-form").reset();
+                appendRating(newRating);
+            })
+            .catch(error => {
+                messageDiv.innerHTML = `<span class='text-danger'>${escapeHtml(error.message)}</span>`;
+            });
+    }
 }
 
 function handleReportClick() {

@@ -40,6 +40,7 @@ class Book(models.Model):
         PENDING = "P", "Pendiente"
         APPROVED = "A", "Aprobado"
         REJECTED = "R", "Rechazado"
+        REPORTED = "D", "REPORTADO"
 
     class License(models.TextChoices):
         PUBLIC_DOMAIN = "PD", "Dominio público"
