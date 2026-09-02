@@ -178,7 +178,7 @@ class Rating(models.Model):
 class Report(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="reports")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    reason = models.TextField()
+    reason = models.TextField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

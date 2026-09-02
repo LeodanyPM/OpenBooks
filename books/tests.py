@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import IntegrityError, transaction
 from django.test import TestCase, override_settings
 
-from .models import Book, Rating
+from .models import Book, Rating, Report
 
 
 User = get_user_model()
@@ -160,4 +160,32 @@ class RatingModelTests(BookTestMixin, TestCase):
             with transaction.atomic():
                 Rating.objects.create(book=self.approved_book, user=self.reader, score=5)
                 
+class ReportModelTest(TestCase):
 
+    def setUp(self):
+        self.user = User.objects.create_user(username="testuser", password="testpassword")
+        self.book = Book.objects.create(title="Test Book", author="Test Author", description="Test Description", uploaded_by=self.user)
+        self.report = Report.objects.create(book=self.book, user=self.user, reason="Contenido inapropiado")
+
+    def test_report_creation(self):
+        self.assertEqual(self.report.book, self.book)
+        self.assertEqual(self.report.user, self.user)
+        self.assertEqual(self.report.reason, "Contenido inapropiado")
+        self.assertIsNotNone(self.report.created_at)
+
+    def test_report_str(self):
+        expected = f"Report on {self.book.title} by {self.user.username}"
+        self.assertEqual(str(self.report), expected)
+
+    def test_report_belongs_to_book(self):
+        self.assertIn(self.report, self.book.reports.all())
+
+    def test_multiple_reports_on_same_book(self):
+        another_user = User.objects.create_user(username="anotheruser", password="anotherpassword")
+        Report.objects.create(book=self.book, user=another_user, reason="Otro motivo de reporte")
+        self.assertEqual(self.book.reports.count(), 2)
+
+    def test_report_requires_reason(self):
+        report = Report(book=self.book, user=self.user, reason="")
+        with self.assertRaises(ValidationError):
+            report.full_clean()
