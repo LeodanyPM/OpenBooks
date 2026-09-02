@@ -1,8 +1,9 @@
 from django.db.models import Avg
-from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
+from rest_framework import status as http_status
 from django.views.generic import ListView, DetailView
-from .models import Book, Rating
-from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer
+from .models import Book, Rating, Report
+from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer
 
 
 class PublicBookListView(ListAPIView):
@@ -55,3 +56,12 @@ class BookDetailView(DetailView):
 
     def get_queryset(self):
         return Book.objects.annotate(rating=Avg("ratings__score")).prefetch_related("ratings__user")
+
+class ReportCreateView(CreateAPIView):
+    serializer_class = ReportSerializer
+
+    def perform_create(self, serializer):
+        book = Book.objects.get(pk=self.kwargs["pk"])
+        serializer.save(book=book, user=self.request.user)
+        book.status = Book.Status.REPORTED
+        book.save()

@@ -1,12 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     const ratingForm = document.getElementById("rating-form");
     const reportBtn = document.getElementById("report-btn");
+    const reportForm = document.getElementById("report-form");
+    const cancelReportBtn = document.getElementById("cancel-report-btn");
 
     if (ratingForm) {
-        ratingForm.addEventListener("submit", handleRatingSubmit);
-    }
+        ratingForm.addEventListener("submit", handleRatingSubmit);}
     if (reportBtn) {
         reportBtn.addEventListener("click", handleReportClick);}
+    if (reportForm) {
+        reportForm.addEventListener("submit", handleReportSubmit);}
+    if (cancelReportBtn) {
+        cancelReportBtn.addEventListener("click", () => {
+            document.getElementById("report-form-container").classList.add("d-none");});}
 });
 
 function submitRating(bookId, ratingData) {
@@ -51,10 +57,6 @@ function handleRatingSubmit(event) {
         }
 }
 
-function handleReportClick() {
-    console.log("Report button clicked for book:", BOOK_ID);
-}
-
 function appendRating(rating) {
     const list = document.getElementById("ratings-list");
 
@@ -82,4 +84,44 @@ function appendRating(rating) {
 
     div.append(header, comment);
     list.appendChild(div);
+}
+
+function handleReportClick() {
+    const formContainer = document.getElementById("report-form-container");
+    formContainer.classList.toggle("d-none");
+}
+
+function handleReportSubmit(event) {
+    event.preventDefault();
+    const reason = document.getElementById("report-reason").value.trim();
+    const messageDiv = document.getElementById("report-message");
+
+    if (!reason) {
+        messageDiv.innerHTML = "<span class='text-danger'>Please write a reason.</span>";
+        return;}
+    messageDiv.innerHTML = "<span class='text-muted'>Sending...</span>";
+    submitReport(BOOK_ID, { reason: reason })
+        .then(() => {
+            alert("Report submitted successfully. This book is no longer publicly visible.");
+            window.location.href = "/api/explore/";})
+        .catch(error => {
+            messageDiv.innerHTML = `<span class='text-danger'>${escapeHtml(error.message)}</span>`;});
+}
+
+function submitReport(bookId, reportData) {
+    const url = `/api/books/${bookId}/report/`;
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    return fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json",
+                  "X-CSRFToken": csrfToken},
+        body: JSON.stringify(reportData)})
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.detail || "Error submitting report");
+                                                });
+                          }
+        return response.json();});
 }

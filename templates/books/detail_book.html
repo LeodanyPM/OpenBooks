@@ -37,12 +37,29 @@
             <button id="read-btn" class="btn btn-primary">Read</button>
             <button id="report-btn" class="btn btn-outline-danger">Report</button>
         </div>
+
+        <!-- form report -->
+        <div id="report-form-container" class="my-3 d-none">
+            <h5>Report this book</h5>
+            <form id="report-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="report-reason" class="form-label">Reason</label>
+                    <textarea id="report-reason" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger">Send report</button>
+                    <button type="button" id="cancel-report-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div id="report-message" class="mt-2"></div>
+            </form>
+        </div>
     </div>
 </div>
 
 <hr>
 
-<!-- form -->
+<!-- form rating -->
 <div class="my-4">
     <h4>Leave your rating</h4>
     <form id="rating-form">
