@@ -1,6 +1,8 @@
 from django.db.models import Avg
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework import status as http_status
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseForbidden
 from django.views.generic import ListView, DetailView
 from .models import Book, Rating, Report
 from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer
@@ -65,3 +67,18 @@ class ReportCreateView(CreateAPIView):
         serializer.save(book=book, user=self.request.user)
         book.status = Book.Status.REPORTED
         book.save()
+
+
+
+
+def read_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    if not book.can_view(request.user):
+        return HttpResponseForbidden("You are not allowed to read this book.")
+
+    if not book.file:
+        return HttpResponseForbidden("This book has no file available.")
+
+    context = {"book": book,"file_url": book.file.url,}
+    return render(request, "books/read_book.html", context)

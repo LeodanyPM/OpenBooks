@@ -1,0 +1,71 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Reading: {{ book.title }} - OpenBook{% endblock %}
+
+{% block extra_css %}
+<style>
+    .reader-container {
+        width: 100%;
+        height: 85vh;
+        border: 1px solid #ddd;
+    }
+    #epub-reader {
+        width: 100%;
+        height: 85vh;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ book.title }}</h2>
+    <a href="{{ book.get_absolute_url }}" class="btn btn-secondary">Back to details</a>
+</div>
+
+{% if book.is_pdf %}
+    <iframe 
+        src="{{ file_url }}#toolbar=0&navpanes=0&scrollbar=1&view=FitH" 
+        class="reader-container" 
+        title="{{ book.title }}">
+    </iframe>
+
+{% elif book.is_epub %}
+    <div class="mb-2 d-flex gap-2">
+        <button id="prev-page" class="btn btn-outline-primary">← Previous</button>
+        <button id="next-page" class="btn btn-outline-primary">Next →</button>
+    </div>
+    
+    <div id="epub-reader"></div>
+
+{% else %}
+    <div class="alert alert-warning">
+        This book format is not supported for online reading.
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    {% if book.is_epub %}
+        <script src="https://cdn.jsdelivr.net/npm/jszip/dist/jszip.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+
+        <script>
+            const book = ePub("{{ file_url }}");
+            const rendition = book.renderTo("epub-reader", {
+                width: "100%",
+                height: "85vh"
+            });
+
+            rendition.display();
+
+            document.getElementById("prev-page").addEventListener("click", () => {
+                rendition.prev();
+            });
+
+            document.getElementById("next-page").addEventListener("click", () => {
+                rendition.next();
+            });
+        </script>
+    {% endif %}
+{% endblock %}

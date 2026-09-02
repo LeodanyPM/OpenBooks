@@ -77,7 +77,7 @@ class Book(models.Model):
         return f"{self.title} by {self.author}"
 
     def get_absolute_url(self):
-        return reverse("books:detail", kwargs={"pk": self.pk})
+        return reverse("api:book-detail", kwargs={"pk": self.pk})
 
     def is_public(self):
         return self.status == self.Status.APPROVED
@@ -134,6 +134,19 @@ class Book(models.Model):
                         "Indica qué licencia Creative Commons es. "
                         "Ejemplo: CC BY-NC 4.0")
                                         })
+    @property
+    def file_extension(self):
+        if self.file:
+            return os.path.splitext(self.file.name)[1].lower()
+        return None
+
+    @property
+    def is_pdf(self):
+        return self.file_extension == ".pdf"
+
+    @property
+    def is_epub(self):
+        return self.file_extension == ".epub"
 
 # Rating #
 
@@ -175,6 +188,7 @@ class Rating(models.Model):
     def __str__(self):
         return f"{self.user} → {self.book} ({self.score})"
 
+#Reports"
 class Report(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="reports")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
