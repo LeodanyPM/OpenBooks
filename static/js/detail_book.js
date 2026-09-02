@@ -6,8 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ratingForm.addEventListener("submit", handleRatingSubmit);
     }
     if (reportBtn) {
-        reportBtn.addEventListener("click", handleReportClick);
-    }
+        reportBtn.addEventListener("click", handleReportClick);}
 });
 
 function submitRating(bookId, ratingData) {
@@ -19,16 +18,13 @@ function submitRating(bookId, ratingData) {
         headers: { "Content-Type": "application/json",
                    "X-CSRFToken": csrfToken
                  },
-        body: JSON.stringify(ratingData)
-    })
+        body: JSON.stringify(ratingData)})
     .then(response => {
         if (!response.ok) {
             return response.json().then(data => {
-                throw new Error(data.detail || "Error submitting rating");
-            });
-        }
-        return response.json();
-    });
+                throw new Error(data.detail || "Error submitting rating");});
+                            }
+        return response.json();});
 }
 
 function handleRatingSubmit(event) {
@@ -40,23 +36,19 @@ function handleRatingSubmit(event) {
 
     if (!score) {
         messageDiv.innerHTML = "<span class='text-danger'>Select a rating.</span>";
-        return;
-    }
+        return;}
     if (!comment){
-        messageDiv.innerHTML = "<span class='text-danger'> Please write a comment. </span>";
-    }
+        messageDiv.innerHTML = "<span class='text-danger'> Please write a comment. </span>";}
     else{
         messageDiv.innerHTML = "<span class='text-muted'>Sending...</span>";
         submitRating(BOOK_ID, { score: parseInt(score), comment: comment })
             .then(newRating => {
                 messageDiv.innerHTML = "<span class='text-success'>Rating submitted.</span>";
                 document.getElementById("rating-form").reset();
-                appendRating(newRating);
-            })
+                appendRating(newRating);})
             .catch(error => {
-                messageDiv.innerHTML = `<span class='text-danger'>${escapeHtml(error.message)}</span>`;
-            });
-    }
+                messageDiv.innerHTML = `<span class='text-danger'>${escapeHtml(error.message)}</span>`;});
+        }
 }
 
 function handleReportClick() {
@@ -68,8 +60,7 @@ function appendRating(rating) {
 
     const emptyMessage = list.querySelector(".text-muted");
     if (emptyMessage) {
-        emptyMessage.remove();
-    }
+        emptyMessage.remove();}
 
     const div = document.createElement("div");
     div.className = "border rounded p-3 mb-2";

@@ -174,3 +174,12 @@ class Rating(models.Model):
 
     def __str__(self):
         return f"{self.user} → {self.book} ({self.score})"
+
+class Report(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="reports")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Report on {self.book.title} by {self.user.username}"
