@@ -37,19 +37,19 @@ def book_file_path(instance, filename):
 
 class Book(models.Model):
     class Status(models.TextChoices):
-        PENDING = "P", "Pendiente"
-        APPROVED = "A", "Aprobado"
-        REJECTED = "R", "Rechazado"
-        REPORTED = "D", "REPORTADO"
+        PENDING = "P", "Pending"
+        APPROVED = "A", "Aproved"
+        REJECTED = "R", "Rejected"
+        REPORTED = "E", "Reported"
 
     class License(models.TextChoices):
-        PUBLIC_DOMAIN = "PD", "Dominio público"
+        PUBLIC_DOMAIN = "PD", "Public domain"
         CREATIVE_COMMONS = "CC", "Creative Commons"
-        ORIGINAL = "OR", "Obra original del usuario"
+        ORIGINAL = "OR", "Original work by the user"
 
-    title = models.CharField("Título", max_length=200)
-    author = models.CharField("Autor(es)", max_length=200)
-    description = models.TextField("Descripción")
+    title = models.CharField("Title", max_length=200)
+    author = models.CharField("Author(s)", max_length=200)
+    description = models.TextField("Description")
 
     file = models.FileField("Archivo", upload_to=book_file_path,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "epub"]), validate_book_file_size],

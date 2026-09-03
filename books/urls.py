@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PublicBookDetailView, PublicBookListView, BookListView, BookDetailView, RatingListCreateView, ReportCreateView, read_book
+from .views import PublicBookDetailView, PublicBookListView, BookListView, BookDetailView, RatingListCreateView, ReportCreateView, read_book, BookUploadView
 
 app_name = "api"
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path("books/<int:pk>/", BookDetailView.as_view(), name="book-detail"),
     path("books/<int:pk>/report/", ReportCreateView.as_view(), name="book-report"),
     path("books/<int:pk>/read/", read_book, name="read"),
+    path("upload/", BookUploadView.as_view(), name="upload"),
     #path("books/<int:pk>/ratings/", views.RatingListCreateView.as_view(), name="book_ratings"),
     path("explore/", BookListView.as_view(), name="explore"),
     
