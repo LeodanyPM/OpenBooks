@@ -54,7 +54,7 @@ class Book(models.Model):
     file = models.FileField("Archivo", upload_to=book_file_path,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "epub"]), validate_book_file_size],
         help_text="Solo PDF o ePub.")
-
+    cover = models.ImageField("Cover", upload_to="covers/", null=True, blank=True)
     license_type = models.CharField("Licencia", max_length=2, choices=License.choices)
     license_detail = models.CharField("Detalle de licencia", max_length=200, blank=True, help_text="Ejemplo: CC BY-NC 4.0")
     rights_declaration = models.TextField("Declaración de derechos", blank=True, help_text="Obligatoria para obras originales.")

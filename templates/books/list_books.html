@@ -1,14 +1,29 @@
 {% load book_tags %}
 
 {% for book in books %}
-<div class="col-md-4 mb-3">
+<div class="col-6 col-md-4 col-lg-3 mb-3 px-2">
     <a href="{% url 'api:book-detail' book.pk %}" class="text-decoration-none text-dark">
-        <div class="card h-100 book-card">
-            <div class="bg-white border" style="height: 180px;"></div>
-            <div class="card-body">
-                <h5 class="card-title">{{ book.title }}</h5>
-                <p class="card-text text-muted">{{ book.author }}</p>
-                <p class="card-text">{{ book.rating|stars|safe }}</p>
+        <div class="card h-100 book-card border-0 shadow-sm">
+            <div class="d-flex align-items-center justify-content-center bg-light"
+                 style="padding: 16px 8px;">
+                {% if book.cover %}
+                    <img src="{{ book.cover.url }}" 
+                         alt="Cover of {{ book.title }}"
+                         style="max-width: 180px; 
+                                aspect-ratio: 2 / 3; 
+                                object-fit: cover; 
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center bg-white border"
+                         style="width: 180px; aspect-ratio: 2 / 3;">
+                        <span class="text-muted small">No cover</span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card-body p-2">
+                <h6 class="card-title mb-1 small fw-semibold text-truncate">{{ book.title }}</h6>
+                <p class="card-text text-muted small mb-1 text-truncate">{{ book.author }}</p>
+                <p class="card-text small mb-0">{{ book.rating|stars|safe }}</p>
             </div>
         </div>
     </a>

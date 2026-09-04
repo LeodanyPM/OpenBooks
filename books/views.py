@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Book, Rating, Report
 from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer
-
+from .covers import create_placeholder_cover
 class PublicBookListView(ListAPIView):
     serializer_class = BookListSerializer
 
@@ -45,7 +45,7 @@ class BookListView(ListView):
     ordering = ["-created_at"]
 
     def get_queryset(self):
-        return Book.public_books().annotate(rating=Avg("ratings__score"))
+        return Book.public_books().annotate(rating=Avg("ratings__score")).order_by("-created_at")
 
     def get_template_names(self):
         if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
@@ -87,15 +87,18 @@ def read_book(request, pk):
 class BookUploadView(LoginRequiredMixin, CreateView):
     model = Book
     template_name = "books/upload_book.html"
-    fields = ["title", "author", "description", "file", 
+    fields = ["title", "author", "description", "file", "cover",
               "license_type", "license_detail", "rights_declaration"]
     success_url = reverse_lazy("api:explore")
 
     def form_valid(self, form):
         form.instance.uploaded_by = self.request.user
-        form.instance.status = Book.Status.PENDING
-        return super().form_valid(form)
+        response = super().form_valid(form)
 
+        if not self.object.cover:
+            create_placeholder_cover(self.object)
+        return response
+        
     def get_success_url(self):
         from django.contrib import messages
         messages.success(self.request, "Your book has been submitted for review. You'll be notified once it's approved.")

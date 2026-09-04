@@ -8,7 +8,14 @@
 <!-- book info -->
 <div class="row">
     <div class="col-md-4 mb-3">
-        <div class="bg-white border" style="height: 300px;"></div>
+        {% if book.cover %}
+        <img src="{{ book.cover.url }}" 
+             class="img-fluid border" 
+             alt="Cover of {{ book.title }}"
+             style="max-height: 300px; object-fit: contain;">
+        {% else %}
+            <div class="bg-white border" style="height: 300px;"></div>
+        {% endif %}
     </div>
    
     <div class="col-md-8">

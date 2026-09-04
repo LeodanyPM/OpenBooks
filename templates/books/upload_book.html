@@ -6,51 +6,46 @@
 {% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">Upload a Book</h1>
-    
     <div class="alert alert-info">
         <strong>Note:</strong> All uploaded books will be reviewed before being made public.
     </div>
-
     <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         {% csrf_token %}
-        
         <div class="mb-3">
             <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
             {{ form.title }}
         </div>
-
         <div class="mb-3">
             <label for="{{ form.author.id_for_label }}" class="form-label">Author</label>
             {{ form.author }}
         </div>
-
         <div class="mb-3">
             <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
             {{ form.description }}
         </div>
-
         <div class="mb-3">
             <label for="{{ form.file.id_for_label }}" class="form-label">Book File (PDF or EPUB, max 20MB)</label>
             {{ form.file }}
         </div>
-
+        <div class="mb-3">
+            <label for="{{ form.cover.id_for_label }}" class="form-label">Cover image (optional)</label>
+            {{ form.cover }}
+            <div class="form-text">If you don't upload a cover, one will be generated automatically.</div>
+        </div>
         <div class="mb-3">
             <label for="{{ form.license_type.id_for_label }}" class="form-label">License Type</label>
             {{ form.license_type }}
         </div>
-
         <div class="mb-3" id="license-detail-group">
             <label for="{{ form.license_detail.id_for_label }}" class="form-label">License Details</label>
             {{ form.license_detail }}
             <div class="form-text">Required for Creative Commons (e.g., CC BY-NC 4.0)</div>
         </div>
-
         <div class="mb-3" id="rights-declaration-group">
             <label for="{{ form.rights_declaration.id_for_label }}" class="form-label">Rights Declaration</label>
             {{ form.rights_declaration }}
             <div class="form-text">Required for original works</div>
         </div>
-
         <button type="submit" class="btn btn-primary">Upload Book</button>
         <a href="{% url 'api:explore' %}" class="btn btn-secondary">Cancel</a>
     </form>
