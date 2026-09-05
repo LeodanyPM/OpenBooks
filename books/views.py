@@ -1,15 +1,15 @@
 from django.db.models import Avg
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework import status as http_status
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseForbidden
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .models import Book, Rating, Report
 from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer
 from .covers import create_placeholder_cover
-
 
 class PublicBookListView(ListAPIView):
     serializer_class = BookListSerializer
@@ -79,13 +79,19 @@ def read_book(request, pk):
 
     if not book.can_view(request.user):
         return HttpResponseForbidden("You are not allowed to read this book.")
-
     if not book.file:
         return HttpResponseForbidden("This book has no file available.")
 
-    context = {"book": book,"file_url": book.file.url,}
-    return render(request, "books/read_book.html", context)
+    if book.is_public():
+        back_url = book.get_absolute_url()
+    elif request.user.is_reviewer():
+        back_url = reverse("api:moderation-detail", kwargs={"pk": book.pk})
+    else:
+        back_url = book.get_absolute_url()
 
+    context = {"book": book, "file_url": book.file.url, "back_url": back_url}
+    return render(request, "books/read_book.html", context)
+    
 class BookUploadView(LoginRequiredMixin, CreateView):
     model = Book
     template_name = "books/upload_book.html"
@@ -102,7 +108,6 @@ class BookUploadView(LoginRequiredMixin, CreateView):
         return response
         
     def get_success_url(self):
-        from django.contrib import messages
         messages.success(self.request, "Your book has been submitted for review. You'll be notified once it's approved.")
         return reverse_lazy("api:explore")
         
@@ -121,3 +126,30 @@ class PendingBooksListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Book.objects.filter(status=Book.Status.PENDING).select_related("uploaded_by").order_by("-created_at")
+
+def moderation_detail(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    # Solo revisores y staff pueden acceder
+    if not request.user.is_reviewer():
+        return HttpResponseForbidden("You do not have permission to access this page.")
+
+    # Manejar la acción de aprobar/rechazar
+    if request.method == "POST":
+        action = request.POST.get("action")
+        comment = request.POST.get("comment", "").strip()
+
+        if action == "approve":
+            book.approve(reviewer=request.user, comment=comment)
+            messages.success(request, f"'{book.title}' has been approved.")
+            return redirect("api:pending-books")
+
+        elif action == "reject":
+            if not comment:
+                messages.error(request, "A reason is required to reject a book.")
+            else:
+                book.reject(reviewer=request.user, comment=comment)
+                messages.success(request, f"'{book.title}' has been rejected.")
+                return redirect("api:pending-books")
+
+    return render(request, "books/moderation/detail_moderation.html", {"book": book})
