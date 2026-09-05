@@ -1,0 +1,169 @@
+{% extends "_base.html" %}
+
+{% block title %}Review: {{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Review Book</h2>
+        <a href="{% url 'api:pending-books' %}" class="btn btn-secondary">Back to pending list</a>
+    </div>
+    <div class="alert alert-info">
+        <strong>Status:</strong> {{ book.get_status_display }}
+        {% if book.status != book.Status.PENDING %}
+            <br>
+            <small class="text-muted">
+                This book is not pending. You are viewing it for reference.
+            </small>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-header">Book Information</div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th style="width: 200px;">Title</th>
+                            <td>{{ book.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Author</th>
+                            <td>{{ book.author }}</td>
+                        </tr>
+                        <tr>
+                            <th>Uploaded by</th>
+                            <td>
+                                {% if book.uploaded_by %}
+                                    {{ book.uploaded_by.username }}
+                                {% else %}
+                                    <span class="text-muted">Unknown</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Upload date</th>
+                            <td>{{ book.created_at|date:"M d, Y H:i" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ book.description|linebreaks }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">License & Rights</div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th style="width: 200px;">License type</th>
+                            <td>{{ book.get_license_type_display }}</td>
+                        </tr>
+                        {% if book.license_detail %}
+                        <tr>
+                            <th>License detail</th>
+                            <td>{{ book.license_detail }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if book.rights_declaration %}
+                        <tr>
+                            <th>Rights declaration</th>
+                            <td>{{ book.rights_declaration|linebreaks }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+
+            {% if book.status == book.Status.PENDING %}
+            <div class="card">
+                <div class="card-header">Decision</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">
+                                Comment <span class="text-muted">(required for rejection)</span>
+                            </label>
+                            <textarea name="comment" id="comment" class="form-control" rows="3"
+                                placeholder="Reason for approval or rejection..."></textarea>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" name="action" value="approve" 
+                                class="btn btn-success">
+                                Approve
+                            </button>
+                            <button type="submit" name="action" value="reject" 
+                                class="btn btn-danger">
+                                Reject
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-header">Previous Decision</div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th style="width: 200px;">Reviewed by</th>
+                            <td>{{ book.reviewed_by.username|default:"Unknown" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Review date</th>
+                            <td>{{ book.reviewed_at|date:"M d, Y H:i" }}</td>
+                        </tr>
+                        {% if book.reviewer_comment %}
+                        <tr>
+                            <th>Comment</th>
+                            <td>{{ book.reviewer_comment|linebreaks }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            {% if book.cover %}
+            <div class="card mb-3">
+                <div class="card-header">Cover</div>
+                <div class="card-body text-center">
+                    <img src="{{ book.cover.url }}" alt="Cover of {{ book.title }}" 
+                         class="img-fluid" style="max-height: 300px;">
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card">
+                <div class="card-header">File</div>
+                <div class="card-body">
+                    {% if book.file %}
+                        <p>
+                            <strong>Format:</strong> 
+                            {{ book.file_extension|upper|cut:"." }}
+                        </p>
+                        <p>
+                            <strong>Size:</strong> 
+                            {{ book.file.size|filesizeformat }}
+                        </p>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'api:read' book.pk %}" class="btn btn-primary">
+                                Read book
+                            </a>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No file available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

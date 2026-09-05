@@ -129,12 +129,10 @@ class PendingBooksListView(LoginRequiredMixin, ListView):
 
 def moderation_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
-
-    # Solo revisores y staff pueden acceder
+    
     if not request.user.is_reviewer():
         return HttpResponseForbidden("You do not have permission to access this page.")
-
-    # Manejar la acción de aprobar/rechazar
+   
     if request.method == "POST":
         action = request.POST.get("action")
         comment = request.POST.get("comment", "").strip()

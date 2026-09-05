@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PublicBookDetailView, PublicBookListView, BookListView, BookDetailView, RatingListCreateView, ReportCreateView, read_book, BookUploadView, PendingBooksListView
+from .views import PublicBookDetailView, PublicBookListView, BookListView, BookDetailView, RatingListCreateView, ReportCreateView, read_book, BookUploadView, PendingBooksListView, moderation_detail
 
 app_name = "api"
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path("books/<int:pk>/read/", read_book, name="read"),
     path("upload/", BookUploadView.as_view(), name="upload"),
     path("moderation/pending/", PendingBooksListView.as_view(), name="pending-books"),
+    path("moderation/detail/<int:pk>/", moderation_detail, name="moderation-detail"),
     #path("books/<int:pk>/ratings/", views.RatingListCreateView.as_view(), name="book_ratings"),
     path("explore/", BookListView.as_view(), name="explore"),
     

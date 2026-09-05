@@ -23,7 +23,7 @@
             <tbody>
                 {% for book in books %}
                 <tr class="book-row" 
-                    data-href="{% url 'api:book-detail' book.pk %}" 
+                    data-href="{% url 'api:moderation-detail' book.pk %}" 
                     style="cursor: pointer;">
                     <td class="fw-semibold">{{ book.title }}</td>
                     <td>{{ book.author }}</td>

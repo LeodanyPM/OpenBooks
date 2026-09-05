@@ -18,24 +18,25 @@
 {% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>{{ book.title }}</h2>
-    <a href="{{back_url}}" class="btn btn-secondary">Back</a>
-</div>
-
 {% if book.is_pdf %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">{{ book.title }}</h2>
+        <a href="{{ back_url }}" class="btn btn-secondary">Back</a>
+    </div>    
     <iframe 
         src="{{ file_url }}#toolbar=0&navpanes=0&scrollbar=1&view=FitH" 
         class="reader-container" 
         title="{{ book.title }}">
     </iframe>
-
 {% elif book.is_epub %}
-    <div class="mb-2 d-flex gap-2">
-        <button id="prev-page" class="btn btn-outline-primary">← Previous</button>
-        <button id="next-page" class="btn btn-outline-primary">Next →</button>
-    </div>
-    
+    <h2 class="mb-3">{{ book.title }}</h2>    
+    <div class="mb-2 d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-2">
+            <button id="prev-page" class="btn btn-outline-primary">← Previous</button>
+            <button id="next-page" class="btn btn-outline-primary">Next →</button>
+        </div>
+        <a href="{{ back_url }}" class="btn btn-secondary">Back</a>
+    </div>    
     <div id="epub-reader"></div>
 
 {% else %}
