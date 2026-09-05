@@ -36,9 +36,9 @@
                             <a class="nav-link" href="{% url 'api:upload' %}">Upload Book</a>
                         </li>
                         
-                        {% if user.is_staff or perms.books.review_book %}
+                        {% if user.is_authenticated and user.is_reviewer %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}">Moderate</a>
+                                <a class="nav-link" href="{% url 'api:pending-books' %}">Moderation</a>
                             </li>
                         {% endif %}
                         

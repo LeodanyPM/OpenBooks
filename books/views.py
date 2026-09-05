@@ -9,6 +9,8 @@ from django.urls import reverse_lazy
 from .models import Book, Rating, Report
 from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer
 from .covers import create_placeholder_cover
+
+
 class PublicBookListView(ListAPIView):
     serializer_class = BookListSerializer
 
@@ -103,3 +105,19 @@ class BookUploadView(LoginRequiredMixin, CreateView):
         from django.contrib import messages
         messages.success(self.request, "Your book has been submitted for review. You'll be notified once it's approved.")
         return reverse_lazy("api:explore")
+        
+
+
+
+class PendingBooksListView(LoginRequiredMixin, ListView):
+    model = Book
+    template_name = "books/moderation/pending_books.html"
+    context_object_name = "books"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_reviewer():
+            return HttpResponseForbidden("You do not have permission to access the moderation panel.")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Book.objects.filter(status=Book.Status.PENDING).select_related("uploaded_by").order_by("-created_at")
