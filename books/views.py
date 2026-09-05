@@ -41,7 +41,7 @@ class RatingListCreateView(ListCreateAPIView):
 class BookListView(ListView):
     template_name = "explore.html"
     context_object_name = "books"
-    paginate_by = 1
+    paginate_by = 4
     ordering = ["-created_at"]
 
     def get_queryset(self):
