@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig', #
     'home.apps.HomeConfig', #
     'books.apps.BooksConfig',#
+    'notifications.apps.NotificationsConfig', #
 ]
 AUTH_USER_MODEL = 'accounts.CustomUser' #
 
