@@ -14,3 +14,6 @@ class CustomUser(AbstractUser):
 
     def is_reviewer(self):
         return self.role == 'reviewer' or self.is_staff
+    
+    def has_unread_notifications(self):
+        return self.notifications.filter(is_read=False).exists()
