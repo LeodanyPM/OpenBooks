@@ -1,4 +1,4 @@
-from django.db.models import Avg
+from django.db.models import Avg, Count, Max
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework import status as http_status
 from django.shortcuts import get_object_or_404, render, redirect
@@ -7,8 +7,9 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
+from rest_framework.permissions import IsAuthenticated
 from .models import Book, Rating, Report
-from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer
+from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer, ReportedBookSerializer
 from .covers import create_placeholder_cover
 
 class PublicBookListView(ListAPIView):
@@ -151,3 +152,14 @@ def moderation_detail(request, pk):
                 return redirect("api:pending-books")
 
     return render(request, "books/moderation/detail_moderation.html", {"book": book})
+
+class ReportedBooksListView(ListAPIView):
+    serializer_class = ReportedBookSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+    
+    def get_queryset(self):
+        if not self.request.user.is_reviewer():
+            return Book.objects.none()
+        return Book.objects.filter(status=Book.Status.REPORTED).annotate(report_count=Count('reports'),latest_report_date=Max('reports__created_at')) \
+            .order_by('-report_count', '-latest_report_date')

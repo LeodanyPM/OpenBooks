@@ -100,3 +100,20 @@ class ReportSerializer(serializers.ModelSerializer):
         if not value or not value.strip():
             raise serializers.ValidationError("Reason is required.")
         return value
+
+class ReportedBookSerializer(serializers.ModelSerializer):
+    report_count = serializers.IntegerField()
+    latest_report_date = serializers.DateTimeField()
+    cover_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Book
+        fields = ["id", "title", "author", "cover_url", "report_count", "latest_report_date"]
+
+    def get_cover_url(self, obj):
+        if obj.cover:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.cover.url)
+            return obj.cover.url
+        return None
