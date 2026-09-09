@@ -11,9 +11,9 @@ urlpatterns = [
     path("books/<int:pk>/report/", ReportCreateView.as_view(), name="book-report"),
     path("books/<int:pk>/read/", read_book, name="read"),
     path("upload/", BookUploadView.as_view(), name="upload"),
-    path("moderation/pending/", PendingBooksListView.as_view(), name="pending-books"),
+    path("moderation/", PendingBooksListView.as_view(), name="pending-books"),
     path("moderation/detail/<int:pk>/", moderation_detail, name="moderation-detail"),
-    path("moderation/reported-books/", ReportedBooksListView.as_view(), name="api-reported-books"),
+    path("moderation/reported-books/", ReportedBooksListView.as_view(), name="reported-books"),
     #path("books/<int:pk>/ratings/", views.RatingListCreateView.as_view(), name="book_ratings"),
     path("explore/", BookListView.as_view(), name="explore"),
     ]

@@ -127,7 +127,12 @@ class PendingBooksListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Book.objects.filter(status=Book.Status.PENDING).select_related("uploaded_by").order_by("-created_at")
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["reported_count"] = Book.objects.filter(status=Book.Status.REPORTED).count()
+        return context
+        
 def moderation_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     
@@ -157,9 +162,8 @@ class ReportedBooksListView(ListAPIView):
     serializer_class = ReportedBookSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None
-    
+
     def get_queryset(self):
         if not self.request.user.is_reviewer():
             return Book.objects.none()
-        return Book.objects.filter(status=Book.Status.REPORTED).annotate(report_count=Count('reports'),latest_report_date=Max('reports__created_at')) \
-            .order_by('-report_count', '-latest_report_date')
+        return Book.objects.filter(status=Book.Status.REPORTED).prefetch_related("reports__user").order_by("-reports__created_at")

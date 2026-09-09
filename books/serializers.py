@@ -102,18 +102,10 @@ class ReportSerializer(serializers.ModelSerializer):
         return value
 
 class ReportedBookSerializer(serializers.ModelSerializer):
-    report_count = serializers.IntegerField()
-    latest_report_date = serializers.DateTimeField()
-    cover_url = serializers.SerializerMethodField()
+    reported_by = serializers.CharField(source="reports.first.user.username")
+    reported_at = serializers.DateTimeField(source="reports.first.created_at")
+    reason = serializers.CharField(source="reports.first.reason")
 
     class Meta:
         model = Book
-        fields = ["id", "title", "author", "cover_url", "report_count", "latest_report_date"]
-
-    def get_cover_url(self, obj):
-        if obj.cover:
-            request = self.context.get('request')
-            if request:
-                return request.build_absolute_uri(obj.cover.url)
-            return obj.cover.url
-        return None
+        fields = ["id", "title", "author", "reported_by", "reported_at", "reason"]
