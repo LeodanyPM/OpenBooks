@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data.forEach(book => {
                             const row = document.createElement("tr");
                             row.style.cursor = "pointer";
-                            row.dataset.href = `/moderation/reported/${book.id}/`;                
+                            row.dataset.href = `reported/${book.id}/`;                
                             row.innerHTML = `
                                 <td class="fw-semibold">${escapeHtml(book.title)}</td>
                                 <td>${escapeHtml(book.author)}</td>

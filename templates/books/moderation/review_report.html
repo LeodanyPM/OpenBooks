@@ -1,21 +1,12 @@
 {% extends "_base.html" %}
 
-{% block title %}Review: {{ book.title }}{% endblock %}
+{% block title %}Review Report: {{ book.title }}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Review Book</h2>
+        <h2>Review Report</h2>
         <a href="{% url 'api:pending-books' %}" class="btn btn-secondary">Back to Moderation</a>
-    </div>
-    <div class="alert alert-info">
-        <strong>Status:</strong> {{ book.get_status_display }}
-        {% if book.status != book.Status.PENDING %}
-            <br>
-            <small class="text-muted">
-                This book is not pending. You are viewing it for reference.
-            </small>
-        {% endif %}
     </div>
     <div class="row">
         <div class="col-md-8">
@@ -75,7 +66,26 @@
                     </table>
                 </div>
             </div>
-            {% if book.status == book.Status.PENDING %}
+            <div class="card mb-3">
+                <div class="card-header">Report Details</div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th style="width: 200px;">Reported by</th>
+                            <td>{{ report.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Report date</th>
+                            <td>{{ report.created_at|date:"M d, Y H:i" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Reason</th>
+                            <td>{{ report.reason|linebreaks }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-header">Decision</div>
                 <div class="card-body">
@@ -83,47 +93,24 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="comment" class="form-label">
-                                Comment <span class="text-muted">(required for rejection)</span>
+                                Message for the reporter <span class="text-danger">*</span>
                             </label>
-                            <textarea name="comment" id="comment" class="form-control" rows="3"
-                                placeholder="Reason for approval or rejection..."></textarea>
+                            <textarea name="comment" id="comment" class="form-control" rows="3" required
+                                placeholder="Explain your decision to the user who submitted this report..."></textarea>
                         </div>
                         <div class="d-flex gap-2">
-                            <button type="submit" name="action" value="approve" 
-                                class="btn btn-success">
-                                Approve
-                            </button>
-                            <button type="submit" name="action" value="reject" 
+                            <button type="submit" name="action" value="approve_report" 
                                 class="btn btn-danger">
-                                Reject
+                                Accept report (remove book)
+                            </button>
+                            <button type="submit" name="action" value="reject_report" 
+                                class="btn btn-success">
+                                Reject report (keep book public)
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-            {% else %}
-            <div class="card">
-                <div class="card-header">Previous Decision</div>
-                <div class="card-body">
-                    <table class="table table-sm">
-                        <tr>
-                            <th style="width: 200px;">Reviewed by</th>
-                            <td>{{ book.reviewed_by.username|default:"Unknown" }}</td>
-                        </tr>
-                        <tr>
-                            <th>Review date</th>
-                            <td>{{ book.reviewed_at|date:"M d, Y H:i" }}</td>
-                        </tr>
-                        {% if book.reviewer_comment %}
-                        <tr>
-                            <th>Comment</th>
-                            <td>{{ book.reviewer_comment|linebreaks }}</td>
-                        </tr>
-                        {% endif %}
-                    </table>
-                </div>
-            </div>
-            {% endif %}
         </div>
         <div class="col-md-4">
             {% if book.cover %}
@@ -154,6 +141,7 @@
                         </div>
                     {% else %}
                         <p class="text-muted">No file available.</p>
+                    </div>
                     {% endif %}
                 </div>
             </div>

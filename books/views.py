@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from rest_framework.permissions import IsAuthenticated
 from .models import Book, Rating, Report
+from notifications.models import Notification
 from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer, ReportedBookSerializer
 from .covers import create_placeholder_cover
 
@@ -167,3 +168,48 @@ class ReportedBooksListView(ListAPIView):
         if not self.request.user.is_reviewer():
             return Book.objects.none()
         return Book.objects.filter(status=Book.Status.REPORTED).prefetch_related("reports__user").order_by("-reports__created_at")
+
+def review_report(request, pk):
+    book = get_object_or_404(Book, pk=pk, status=Book.Status.REPORTED)
+
+    if not request.user.is_reviewer():
+        return HttpResponseForbidden("You do not have permission to access this page.")
+    report = book.reports.first()
+    if not report:
+        messages.error(request, "No report found for this book.")
+        return redirect("books:pending-books")
+    if request.method == "POST":
+        action = request.POST.get("action")
+        comment = request.POST.get("comment", "").strip()
+        if not comment:
+            messages.error(request, "A message for the reporter is required.")
+            return render(request, "books/moderation/review_report.html", {
+                "book": book,
+                "report": report,
+            })
+        reporter = report.user
+        if action == "approve_report":
+            Notification.objects.create(
+                recipient=reporter,
+                message=f"Your report on '{book.title}' has been accepted. The book has been removed from the platform. Reviewer's message: {comment}",
+                book=None,)
+            if book.file:
+                book.file.delete(save=False)
+            if book.cover:
+                book.cover.delete(save=False)
+            book.delete()
+            messages.success(request, f"The report was accepted and '{book.title}' has been removed.")
+            return redirect("api:pending-books")
+
+        elif action == "reject_report":
+            book.status = Book.Status.APPROVED
+            book.save(update_fields=["status"])
+            Notification.objects.create(
+                recipient=reporter,
+                message=f"Your report on '{book.title}' has been rejected. The book remains available. Reviewer's message: {comment}",
+                book=book,)
+            report.delete()
+            messages.success(request, f"The report was rejected and '{book.title}' is public again.")
+            return redirect("api:pending-books")
+
+    return render(request, "books/moderation/review_report.html", {"book": book, "report": report,})
