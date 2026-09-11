@@ -1,0 +1,148 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}My Profile - OpenBook{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #0d6efd;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+    .status-badge {
+        font-size: 0.85rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- info profile -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="profile-avatar me-3">
+                    {{ request.user.username|first|upper }}
+                </div>
+                <div class="flex-grow-1">
+                    <h2 class="mb-1">{{ request.user.username }}</h2>
+                    <p class="text-muted mb-1">
+                        Member since {{ request.user.date_joined|date:"M Y" }}
+                    </p>
+                    <p class="mb-0">
+                        {% if request.user.is_staff %}
+                            <span class="badge bg-danger">Admin</span>
+                        {% elif request.user.is_reviewer %}
+                            <span class="badge bg-info">Reviewer</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- tabs -->
+    <ul class="nav nav-tabs mb-3" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" 
+                    id="public-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#public-panel"
+                    type="button" 
+                    role="tab">
+                My Public Books
+                <span class="badge bg-secondary">{{ public_count }}</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" 
+                    id="nonpublic-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#nonpublic-panel"
+                    type="button" 
+                    role="tab">
+                In Review
+                <span class="badge bg-secondary">{{ non_public_count }}</span>
+            </button>
+        </li>
+    </ul>
+    <!-- content tabs -->
+    <div class="tab-content">
+        <!-- tab 1 -->
+        <div class="tab-pane fade show active" id="public-panel" role="tabpanel">
+            {% if public_books %}
+                <div class="row">
+                    {% include "books/list_books.html" with books=public_books %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    You haven't published any books yet.
+                    <a href="{% url 'api:upload' %}" class="alert-link">Upload your first book</a>
+                </div>
+            {% endif %}
+        </div>
+        <!-- tab2 -->
+        <div class="tab-pane fade" id="nonpublic-panel" role="tabpanel">
+            {% if non_public_books %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Upload date</th>
+                            <th scope="col">Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in non_public_books %}
+                        <tr>
+                            <td class="fw-semibold">
+                                <a href="{% url 'api:book-detail' book.pk %}" class="text-decoration-none text-dark">
+                                    {{ book.title }}
+                                </a>
+                            </td>
+                            <td>{{ book.author }}</td>
+                            <td>
+                                {% if book.status == book.Status.PENDING %}
+                                    <span class="badge bg-warning text-dark status-badge">Pending</span>
+                                {% elif book.status == book.Status.REPORTED %}
+                                    <span class="badge bg-orange status-badge" style="background-color: #fd7e14;">Reported</span>
+                                {% elif book.status == book.Status.REJECTED %}
+                                    <span class="badge bg-danger status-badge">Rejected</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-muted">{{ book.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                {% if book.status == book.Status.REJECTED and book.reviewer_comment %}
+                                    <small class="text-danger">
+                                        <strong>Reason:</strong> {{ book.reviewer_comment|truncatechars:80 }}
+                                    </small>
+                                {% elif book.status == book.Status.PENDING %}
+                                    <small class="text-muted">Awaiting moderator review</small>
+                                {% elif book.status == book.Status.REPORTED %}
+                                    <small class="text-muted">Under review due to a report</small>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <div class="alert alert-success">
+                    All your books are public. Nothing in review.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -13,6 +13,7 @@ from notifications.models import Notification
 from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer, ReportedBookSerializer
 from .covers import create_placeholder_cover
 
+
 class PublicBookListView(ListAPIView):
     serializer_class = BookListSerializer
 
@@ -72,9 +73,6 @@ class ReportCreateView(CreateAPIView):
         serializer.save(book=book, user=self.request.user)
         book.status = Book.Status.REPORTED
         book.save()
-
-
-
 
 def read_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
