@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Search Results - OpenBook{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if query %}
+        <h2 class="mb-4">Search results for "{{ query }}"</h2>     
+        {% if books %}
+            <p class="text-muted mb-3">
+                Found {{ page_obj.paginator.count }} book{{ page_obj.paginator.count|pluralize }}
+            </p>            
+            <div id="books-grid" class="row">
+                {% include "books/list_books.html" %}
+            </div>
+            {% if page_obj.has_next %}
+            <div class="text-center my-3">
+                <button id="show-more-btn"
+                        class="btn btn-secondary"
+                        data-last-page="{{ page_obj.paginator.num_pages }}"
+                        data-next-page="{{ page_obj.next_page_number }}">
+                    Show More
+                </button>
+            </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                No books found for "{{ query }}". Try a different search term.
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-warning">
+            Please enter a search term.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/list_books.js' %}"></script>
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.db.models import Avg, Count, Max
+from django.db.models import Avg, Count, Max, Q
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework import status as http_status
 from django.shortcuts import get_object_or_404, render, redirect
@@ -56,6 +56,23 @@ class BookListView(ListView):
         if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return ["books/list_books.html"]
         return [self.template_name]
+        
+class SearchResultsListView(ListView):
+    model = Book
+    context_object_name = "books"
+    template_name = "books/search_results.html"
+    paginate_by = 12
+
+    def get_queryset(self):
+        query = self.request.GET.get("q", "").strip()
+        if not query:
+            return Book.objects.none()
+        return Book.public_books().filter(Q(title__icontains=query) | Q(author__icontains=query)).order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query"] = self.request.GET.get("q", "").strip()
+        return context
         
 class BookDetailView(DetailView):
     model = Book
