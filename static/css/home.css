@@ -1,0 +1,55 @@
+.hero-section {
+        background-color: #f8f9fa;
+        padding: 80px 0;
+        text-align: center;
+    }
+.hero-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.hero-section p {
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
+.step-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #0d6efd;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 1rem;
+}
+.stats-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0d6efd;
+}
+.cta-section {
+    background-color: #0d6efd;
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+.cta-section h2 {
+    margin-bottom: 1rem;
+}
+.about-section {
+    padding: 60px 0;
+    background-color: #fff;
+}
+.policy-box {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #0d6efd;
+}
