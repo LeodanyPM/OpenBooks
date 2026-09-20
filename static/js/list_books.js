@@ -7,11 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     showMoreBtn.addEventListener("click", () => {
         const nextPage = showMoreBtn.dataset.nextPage;
         const lastPage =  showMoreBtn.dataset.lastPage;
+        const query = showMoreBtn.dataset.query;
 
         showMoreBtn.disabled = true;
         showMoreBtn.textContent = "Cargando...";
         
-        fetch(`?page=${nextPage}`, {
+        let fetchUrl;
+        if (query) {fetchUrl = `?q=${encodeURIComponent(query)}&page=${nextPage}`;} 
+        else {fetchUrl = `?page=${nextPage}`;}
+
+        fetch(fetchUrl, {
             headers: { "X-Requested-With": "XMLHttpRequest" }})
         .then(response => {
             if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);

@@ -46,7 +46,7 @@ class RatingListCreateView(ListCreateAPIView):
 class BookListView(ListView):
     template_name = "explore.html"
     context_object_name = "books"
-    paginate_by = 4
+    paginate_by = 1
     ordering = ["-created_at"]
 
     def get_queryset(self):
@@ -61,7 +61,7 @@ class SearchResultsListView(ListView):
     model = Book
     context_object_name = "books"
     template_name = "books/search_results.html"
-    paginate_by = 12
+    paginate_by = 1
 
     def get_queryset(self):
         query = self.request.GET.get("q", "").strip()
@@ -73,6 +73,11 @@ class SearchResultsListView(ListView):
         context = super().get_context_data(**kwargs)
         context["query"] = self.request.GET.get("q", "").strip()
         return context
+        
+    def get_template_names(self):
+        if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return ["books/list_books.html"]
+        return [self.template_name]
         
 class BookDetailView(DetailView):
     model = Book
