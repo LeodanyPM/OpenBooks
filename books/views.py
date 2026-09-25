@@ -1,11 +1,13 @@
 from django.db.models import Avg, Count, Max, Q
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework import status as http_status
+from rest_framework.exceptions import PermissionDenied, ValidationError as DRFValidationError
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, Http404
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
 from rest_framework.permissions import IsAuthenticated
 from .models import Book, Rating, Report
@@ -33,15 +35,18 @@ class PublicBookDetailView(RetrieveAPIView):
         
 class RatingListCreateView(ListCreateAPIView):
     serializer_class = RatingSerializer
-
+    permission_classes = [IsAuthenticated]
+    
     def get_queryset(self):
         return Rating.objects.filter(book_id=self.kwargs["pk"])
 
     def perform_create(self, serializer):
-        serializer.save(
-            book_id=self.kwargs["pk"],
-            user=self.request.user
-        )
+        book = get_object_or_404(Book, pk=self.kwargs["pk"])
+        if not book.is_public():
+            raise PermissionDenied("You can only rate public books.")
+        if book.uploaded_by == self.request.user:
+            raise PermissionDenied("You cannot rate your own book.")
+        serializer.save(book=book, user=self.request.user)
                 
 class BookListView(ListView):
     template_name = "explore.html"
@@ -86,12 +91,24 @@ class BookDetailView(DetailView):
 
     def get_queryset(self):
         return Book.objects.annotate(rating=Avg("ratings__score")).prefetch_related("ratings__user")
+    
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        user = self.request.user if self.request.user.is_authenticated else None        
+        if not obj.can_view(user):
+            raise Http404("Book not found.")        
+        return obj
 
 class ReportCreateView(CreateAPIView):
     serializer_class = ReportSerializer
-
+    permission_classes = [IsAuthenticated]
+    
     def perform_create(self, serializer):
         book = Book.objects.get(pk=self.kwargs["pk"])
+        
+        if not book.is_public():
+            raise PermissionDenied("You can only report public books.")
+            
         serializer.save(book=book, user=self.request.user)
         book.status = Book.Status.REPORTED
         book.save()
@@ -142,6 +159,9 @@ class PendingBooksListView(LoginRequiredMixin, ListView):
     context_object_name = "books"
 
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
         if not request.user.is_reviewer():
             return HttpResponseForbidden("You do not have permission to access the moderation panel.")
         return super().dispatch(request, *args, **kwargs)
@@ -153,7 +173,8 @@ class PendingBooksListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["reported_count"] = Book.objects.filter(status=Book.Status.REPORTED).count()
         return context
-        
+
+@login_required        
 def moderation_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     
@@ -189,6 +210,7 @@ class ReportedBooksListView(ListAPIView):
             return Book.objects.none()
         return Book.objects.filter(status=Book.Status.REPORTED).prefetch_related("reports__user").order_by("-reports__created_at")
 
+@login_required
 def review_report(request, pk):
     book = get_object_or_404(Book, pk=pk, status=Book.Status.REPORTED)
 

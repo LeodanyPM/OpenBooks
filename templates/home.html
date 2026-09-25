@@ -94,7 +94,7 @@
         <h2>Are You a Writer?</h2>
         <p class="lead mb-4">Share your work with readers around the world. It's free and easy.</p>
         {% if user.is_authenticated %}
-            <a href="{% url 'profile' %}" class="btn btn-light btn-lg">Upload Your Book</a>
+            <a href="{% url 'api:upload' %}" class="btn btn-light btn-lg">Upload Your Book</a>
         {% else %}
             <a href="{% url 'register' %}" class="btn btn-light btn-lg">Create an Account</a>
         {% endif %}

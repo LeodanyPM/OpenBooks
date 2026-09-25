@@ -9,10 +9,10 @@ from .forms import CustomUserCreationForm
 class SignupPageView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")
-    template_name = "accounts/register.html"
+    template_name = "registration/register.html"
 
 class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = "accounts/profile.html"
+    template_name = "registration/profile.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
