@@ -120,13 +120,17 @@ def read_book(request, pk):
         return HttpResponseForbidden("You are not allowed to read this book.")
     if not book.file:
         return HttpResponseForbidden("This book has no file available.")
-
-    if book.is_public():
+    if book.status == Book.Status.APPROVED:
         back_url = book.get_absolute_url()
-    elif request.user.is_reviewer():
-        back_url = reverse("api:moderation-detail", kwargs={"pk": book.pk})
-    else:
+    
+    elif book.uploaded_by == request.user:
         back_url = book.get_absolute_url()
+    
+    elif book.status == Book.Status.REPORTED:
+        back_url = reverse("books:reported-detail", kwargs={"pk": book.pk})
+    
+    else: 
+        back_url = reverse("books:moderation-detail", kwargs={"pk": book.pk})
 
     context = {"book": book, "file_url": book.file.url, "back_url": back_url}
     return render(request, "books/read_book.html", context)
@@ -136,7 +140,7 @@ class BookUploadView(LoginRequiredMixin, CreateView):
     template_name = "books/upload_book.html"
     fields = ["title", "author", "description", "file", "cover",
               "license_type", "license_detail", "rights_declaration"]
-    success_url = reverse_lazy("api:explore")
+    success_url = reverse_lazy("books:explore")
 
     def form_valid(self, form):
         form.instance.uploaded_by = self.request.user
@@ -148,7 +152,7 @@ class BookUploadView(LoginRequiredMixin, CreateView):
         
     def get_success_url(self):
         messages.success(self.request, "Your book has been submitted for review. You'll be notified once it's approved.")
-        return reverse_lazy("api:explore")
+        return reverse_lazy("books:explore")
         
 
 
@@ -188,7 +192,7 @@ def moderation_detail(request, pk):
         if action == "approve":
             book.approve(reviewer=request.user, comment=comment)
             messages.success(request, f"'{book.title}' has been approved.")
-            return redirect("api:pending-books")
+            return redirect("books:pending-books")
 
         elif action == "reject":
             if not comment:
@@ -196,7 +200,7 @@ def moderation_detail(request, pk):
             else:
                 book.reject(reviewer=request.user, comment=comment)
                 messages.success(request, f"'{book.title}' has been rejected.")
-                return redirect("api:pending-books")
+                return redirect("books:pending-books")
 
     return render(request, "books/moderation/detail_moderation.html", {"book": book})
 
@@ -241,7 +245,7 @@ def review_report(request, pk):
                 book.cover.delete(save=False)
             book.delete()
             messages.success(request, f"The report was accepted and '{book.title}' has been removed.")
-            return redirect("api:pending-books")
+            return redirect("books:pending-books")
 
         elif action == "reject_report":
             book.status = Book.Status.APPROVED
@@ -252,6 +256,6 @@ def review_report(request, pk):
                 book=book,)
             report.delete()
             messages.success(request, f"The report was rejected and '{book.title}' is public again.")
-            return redirect("api:pending-books")
+            return redirect("books:pending-books")
 
     return render(request, "books/moderation/review_report.html", {"book": book, "report": report,})

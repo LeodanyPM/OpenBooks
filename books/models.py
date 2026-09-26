@@ -77,7 +77,7 @@ class Book(models.Model):
         return f"{self.title} by {self.author}"
 
     def get_absolute_url(self):
-        return reverse("api:book-detail", kwargs={"pk": self.pk})
+        return reverse("books:book-detail", kwargs={"pk": self.pk})
 
     def is_public(self):
         return self.status == self.Status.APPROVED
