@@ -9,7 +9,6 @@
             <div class="card shadow-sm">
                 <div class="card-body p-4">
                     <h2 class="text-center mb-4">Sign Up</h2>
-
                     {% if form.non_field_errors %}
                         <div class="alert alert-danger">
                             {% for error in form.non_field_errors %}
@@ -17,10 +16,8 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-
                     <form method="post">
-                        {% csrf_token %}
-                        
+                        {% csrf_token %}                        
                         <div class="mb-3">
                             <label for="id_username" class="form-label">Username</label>
                             <input type="text" name="username" id="id_username" 
@@ -32,7 +29,6 @@
                                 <small class="form-text text-muted">Required. 150 characters or fewer.</small>
                             {% endif %}
                         </div>
-
                         <div class="mb-3">
                             <label for="id_email" class="form-label">Email</label>
                             <input type="email" name="email" id="id_email" 
@@ -42,7 +38,6 @@
                                 <div class="invalid-feedback">{{ form.email.errors.0 }}</div>
                             {% endif %}
                         </div>
-
                         <div class="mb-3">
                             <label for="id_password1" class="form-label">Password</label>
                             <input type="password" name="password1" id="id_password1" 
@@ -53,7 +48,6 @@
                                 <small class="form-text text-muted">At least 8 characters. Can't be too common.</small>
                             {% endif %}
                         </div>
-
                         <div class="mb-3">
                             <label for="id_password2" class="form-label">Confirm Password</label>
                             <input type="password" name="password2" id="id_password2" 
@@ -62,10 +56,8 @@
                                 <div class="invalid-feedback">{{ form.password2.errors.0 }}</div>
                             {% endif %}
                         </div>
-
                         <button type="submit" class="btn btn-primary w-100 mb-3">Sign Up</button>
                     </form>
-
                     <p class="text-center text-muted mb-0">
                         Already have an account? <a href="{% url 'login' %}">Log in</a>
                     </p>
