@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function submitRating(bookId, ratingData) {
-    const url = `/api/books/${bookId}/ratings/`;
+    const url = `/books/${bookId}/ratings/`;
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     
     return fetch(url, {
@@ -103,13 +103,13 @@ function handleReportSubmit(event) {
     submitReport(BOOK_ID, { reason: reason })
         .then(() => {
             alert("Report submitted successfully. This book is no longer publicly visible.");
-            window.location.href = "/api/explore/";})
+            window.location.href = "/books/explore/";})
         .catch(error => {
             messageDiv.innerHTML = `<span class='text-danger'>${escapeHtml(error.message)}</span>`;});
 }
 
 function submitReport(bookId, reportData) {
-    const url = `/api/books/${bookId}/report/`;
+    const url = `/books/${bookId}/report/`;
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     return fetch(url, {

@@ -84,7 +84,7 @@
             {% else %}
                 <div class="alert alert-info">
                     You haven't published any books yet.
-                    <a href="{% url 'api:upload' %}" class="alert-link">Upload your first book</a>
+                    <a href="{% url 'books:upload' %}" class="alert-link">Upload your first book</a>
                 </div>
             {% endif %}
         </div>
@@ -106,7 +106,7 @@
                         {% for book in non_public_books %}
                         <tr>
                             <td class="fw-semibold">
-                                <a href="{% url 'api:book-detail' book.pk %}" class="text-decoration-none text-dark">
+                                <a href="{% url 'books:book-detail' book.pk %}" class="text-decoration-none text-dark">
                                     {{ book.title }}
                                 </a>
                             </td>

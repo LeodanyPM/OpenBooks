@@ -18,7 +18,7 @@
         <a class="navbar-brand" href="{% url 'home' %}">OpenBook</a>
         
         <!-- search form -->
-        <form action="{% url 'api:search-results' %}" method="get" class="mx-3">
+        <form action="{% url 'books:search-results' %}" method="get" class="mx-3">
             <div class="position-relative" style="width: 200px;">
                 <i class="fas fa-search position-absolute top-50 translate-middle-y text-secondary" 
                    style="left: 16px;"></i>
@@ -43,14 +43,14 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'api:explore' %}">Explore</a>
+                    <a class="nav-link" href="{% url 'books:explore' %}">Explore</a>
                 </li>
                  {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile' %}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'api:upload' %}">Upload Book</a>
+                        <a class="nav-link" href="{% url 'books:upload' %}">Upload Book</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'notifications:notification-list' %}">
@@ -62,7 +62,7 @@
                     </li>
                     {% if user.is_reviewer %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'api:pending-books' %}">Moderation</a>
+                            <a class="nav-link" href="{% url 'books:pending-books' %}">Moderation</a>
                         </li>
                     {% endif %}                   
                     {% if user.is_staff %}

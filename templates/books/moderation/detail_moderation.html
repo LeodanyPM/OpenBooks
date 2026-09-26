@@ -6,7 +6,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Review Book</h2>
-        <a href="{% url 'api:pending-books' %}" class="btn btn-secondary">Back to Moderation</a>
+        <a href="{% url 'books:pending-books' %}" class="btn btn-secondary">Back to Moderation</a>
     </div>
     <div class="alert alert-info">
         <strong>Status:</strong> {{ book.get_status_display }}
@@ -148,7 +148,7 @@
                             {{ book.file.size|filesizeformat }}
                         </p>
                         <div class="d-grid gap-2">
-                            <a href="{% url 'api:read' book.pk %}" class="btn btn-primary">
+                            <a href="{% url 'books:read' book.pk %}" class="btn btn-primary">
                                 Read book
                             </a>
                         </div>

@@ -27,7 +27,7 @@
                     data-bs-target="#reported-panel"
                     type="button" 
                     role="tab"
-                    data-url="{% url 'api:reported-books' %}">
+                    data-url="{% url 'books:reported-books' %}">
                 Reported Books
                 <span class="badge bg-secondary" id="reported-count">{{ reported_count }}</span>
             </button>
@@ -53,7 +53,7 @@
                     <tbody>
                         {% for book in books %}
                         <tr class="book-row" 
-                            data-href="{% url 'api:moderation-detail' book.pk %}" 
+                            data-href="{% url 'books:moderation-detail' book.pk %}" 
                             style="cursor: pointer;">
                             <td class="fw-semibold">{{ book.title }}</td>
                             <td>{{ book.author }}</td>

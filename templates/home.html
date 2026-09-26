@@ -14,7 +14,7 @@
         <h1>Share Your Stories with the World</h1>
         <p>OpenBook is a free platform where writers share their books and readers discover new stories.</p>
         <div class="d-flex justify-content-center gap-3">
-            <a href="{% url 'api:explore' %}" class="btn btn-primary btn-lg">Explore Books</a>
+            <a href="{% url 'books:explore' %}" class="btn btn-primary btn-lg">Explore Books</a>
             {% if not user.is_authenticated %}
                 <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">Join Us</a>
             {% endif %}
@@ -55,7 +55,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0">Recent Books</h2>
-            <a href="{% url 'api:explore' %}" class="btn btn-outline-primary">See all →</a>
+            <a href="{% url 'books:explore' %}" class="btn btn-outline-primary">See all →</a>
         </div>
         
         {% if recent_books %}
@@ -64,7 +64,7 @@
             </div>
         {% else %}
             <div class="alert alert-info">
-                No books yet. Be the first to <a href="{% url 'api:upload' %}">share one</a>!
+                No books yet. Be the first to <a href="{% url 'books:upload' %}">share one</a>!
             </div>
         {% endif %}
     </div>
@@ -94,7 +94,7 @@
         <h2>Are You a Writer?</h2>
         <p class="lead mb-4">Share your work with readers around the world. It's free and easy.</p>
         {% if user.is_authenticated %}
-            <a href="{% url 'api:upload' %}" class="btn btn-light btn-lg">Upload Your Book</a>
+            <a href="{% url 'books:upload' %}" class="btn btn-light btn-lg">Upload Your Book</a>
         {% else %}
             <a href="{% url 'register' %}" class="btn btn-light btn-lg">Create an Account</a>
         {% endif %}
