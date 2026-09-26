@@ -9,10 +9,9 @@ from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone
 
-# Validadores y rutas #
+# Validators and routes #
 
 MAX_BOOK_FILE_MB = 20
-
 
 def validate_book_file_size(value):
     max_size = MAX_BOOK_FILE_MB * 1024 * 1024
@@ -21,8 +20,8 @@ def validate_book_file_size(value):
 
 def book_file_path(instance, filename):
     """
-    Guarda archivos con nombre único.
-    Ejemplo: media/books_file/a1b2c3d4.pdf
+    Saves files with a unique name. 
+    Example: media/books_file/a1b2c3d4.pdf
     """
     ext = os.path.splitext(filename)[1].lower()
     if ext not in (".pdf", ".epub"):
@@ -51,22 +50,22 @@ class Book(models.Model):
     author = models.CharField("Author(s)", max_length=200)
     description = models.TextField("Description")
 
-    file = models.FileField("Archivo", upload_to=book_file_path,
+    file = models.FileField("Archive", upload_to=book_file_path,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "epub"]), validate_book_file_size],
-        help_text="Solo PDF o ePub.")
+        help_text="Onli PDF or ePub.")
     cover = models.ImageField("Cover", upload_to="covers/", null=True, blank=True)
-    license_type = models.CharField("Licencia", max_length=2, choices=License.choices)
-    license_detail = models.CharField("Detalle de licencia", max_length=200, blank=True, help_text="Ejemplo: CC BY-NC 4.0")
-    rights_declaration = models.TextField("Declaración de derechos", blank=True, help_text="Obligatoria para obras originales.")
+    license_type = models.CharField("License", max_length=2, choices=License.choices)
+    license_detail = models.CharField("License details", max_length=200, blank=True, help_text="Example: CC BY-NC 4.0")
+    rights_declaration = models.TextField("Statement of Rights", blank=True, help_text="Mandatory for original works.")
 
-    status = models.CharField("Estado", max_length=1, choices=Status.choices, default=Status.PENDING)
+    status = models.CharField("State", max_length=1, choices=Status.choices, default=Status.PENDING)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="uploaded_books", verbose_name="Subido por" )
     reviewed_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="reviewed_books", 
-                verbose_name="Revisado por")
-    reviewed_at = models.DateTimeField("Fecha de revisión", null=True, blank=True)
-    reviewer_comment = models.TextField("Comentario del revisor", blank=True)
-    created_at = models.DateTimeField("Creado", auto_now_add=True )
-    updated_at = models.DateTimeField("Actualizado", auto_now=True)
+                verbose_name="Reviewed by")
+    reviewed_at = models.DateTimeField("Revision date", null=True, blank=True)
+    reviewer_comment = models.TextField("Reviewer's comment", blank=True)
+    created_at = models.DateTimeField("Created", auto_now_add=True )
+    updated_at = models.DateTimeField("Updated", auto_now=True)
 
     class Meta:
         ordering = ["-created_at"]
@@ -88,10 +87,10 @@ class Book(models.Model):
 
     def can_view(self, user):
         """
-        Control de acceso.
-        - Los libros aprobados los ve todo el mundo.
-        - Los pendientes/rechazados los ve su dueño.
-        - También los ve staff o usuarios del grupo Reviewers.
+        Access control. 
+        - Approved books are visible to everyone. 
+        - Pending or rejected books are visible to their owner. 
+        - They are also visible to staff or users in the Reviewers group.
         """
         if self.is_public():
             return True
@@ -123,16 +122,16 @@ class Book(models.Model):
         if self.license_type == self.License.ORIGINAL:
             if not self.rights_declaration:
                 raise ValidationError({"rights_declaration": (
-                        "La declaración de derechos es obligatoria "
-                        "para obras originales.")
+                        "The declaration of rights is mandatory "
+                        "for original works.")
                                         })
 
         if self.license_type == self.License.CREATIVE_COMMONS:
             if not self.license_detail:
                 raise ValidationError({
                     "license_detail": (
-                        "Indica qué licencia Creative Commons es. "
-                        "Ejemplo: CC BY-NC 4.0")
+                        "Indicate which Creative Commons license it is. "
+                        "Example: CC BY-NC 4.0")
                                         })
     @property
     def file_extension(self):
@@ -153,15 +152,15 @@ class Book(models.Model):
 class Rating(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="ratings")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="book_ratings")
-    score = models.PositiveSmallIntegerField("Puntuación", 
+    score = models.PositiveSmallIntegerField("Punctuation", 
             validators=[MinValueValidator(1), MaxValueValidator(5)])
-    comment = models.TextField("Comentario", blank=True)
-    created_at = models.DateTimeField( "Creado", auto_now_add=True)
+    comment = models.TextField("Comment", blank=True)
+    created_at = models.DateTimeField( "Created", auto_now_add=True)
 
     class Meta:
         ordering = ["-created_at"]
-        verbose_name = "Valoración"
-        verbose_name_plural = "Valoraciones"
+        verbose_name = "Rating"
+        verbose_name_plural = "Ratings"
         constraints = [
             models.UniqueConstraint(
                 fields=["book", "user"],
@@ -181,9 +180,9 @@ class Rating(models.Model):
             except Book.DoesNotExist:
                 return
             if book.uploaded_by_id == self.user_id:
-                raise ValidationError("No puedes valorar un libro que tú subiste.")
+                raise ValidationError("You cannot rate a book that you uploaded.")
             if not book.is_public():
-                raise ValidationError("Solo puedes valorar libros aprobados.")
+                raise ValidationError("You can only rate approved books.")
 
     def __str__(self):
         return f"{self.user} → {self.book} ({self.score})"
