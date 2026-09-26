@@ -36,7 +36,7 @@ class BookAccessProtectionTests(TestCase):
         self.pending_book = create_book(self.owner, status=Book.Status.PENDING)
 
     def _detail_url(self, book):
-        return reverse("api:book-detail", kwargs={"pk": book.pk})
+        return reverse("books:book-detail", kwargs={"pk": book.pk})
 
     def test_anonymous_cannot_view_pending_book(self):
         response = self.client.get(self._detail_url(self.pending_book))
@@ -57,7 +57,7 @@ class RatingProtectionTests(TestCase):
         self.pending_book = create_book(self.owner, status=Book.Status.PENDING)
 
     def _rating_url(self, book):
-        return reverse("api:book-ratings", kwargs={"pk": book.pk})
+        return reverse("books:book-ratings", kwargs={"pk": book.pk})
 
     def test_anonymous_cannot_rate(self):
         response = self.client.post(self._rating_url(self.public_book), {"score": 5, "comment": "Great"})
@@ -81,7 +81,7 @@ class ReportProtectionTests(TestCase):
         self.public_book = create_book(self.owner, status=Book.Status.APPROVED)
 
     def _report_url(self, book):
-        return reverse("api:book-report", kwargs={"pk": book.pk})
+        return reverse("books:book-report", kwargs={"pk": book.pk})
 
     def test_anonymous_cannot_report(self):
         response = self.client.post(self._report_url(self.public_book), {"reason": "Spam"})
@@ -96,13 +96,13 @@ class ModerationProtectionTests(TestCase):
         self.pending_book = create_book(self.owner, status=Book.Status.PENDING)
 
     def test_anonymous_cannot_access_moderation(self):
-        url = reverse("api:moderation-detail", kwargs={"pk": self.pending_book.pk})
+        url = reverse("books:moderation-detail", kwargs={"pk": self.pending_book.pk})
         response = self.client.get(url)
         self.assertIn(response.status_code, [302, 403])
 
     def test_normal_user_cannot_approve_book(self):
         self.client.login(username="reader", password="testpass123")
-        url = reverse("api:moderation-detail", kwargs={"pk": self.pending_book.pk})
+        url = reverse("books:moderation-detail", kwargs={"pk": self.pending_book.pk})
         response = self.client.post(url, {"action": "approve", "comment": "OK"})
         self.assertIn(response.status_code, [403, 302])
         

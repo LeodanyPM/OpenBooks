@@ -1,7 +1,7 @@
-from django.db.models import Avg, Count, Max, Q
+from django.db.models import Avg, Q
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
-from rest_framework import status as http_status
-from rest_framework.exceptions import PermissionDenied, ValidationError as DRFValidationError
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseForbidden, Http404
 from django.views.generic import ListView, DetailView, CreateView
@@ -9,30 +9,13 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
-from rest_framework.permissions import IsAuthenticated
 from .models import Book, Rating, Report
 from notifications.models import Notification
-from .serializers import BookListSerializer, BookDetailSerializer, RatingSerializer, ReportSerializer, ReportedBookSerializer
+from .serializers import  RatingSerializer, ReportSerializer, ReportedBookSerializer
 from .covers import create_placeholder_cover
 
 
-class PublicBookListView(ListAPIView):
-    serializer_class = BookListSerializer
-
-    def get_queryset(self):
-        return (Book.public_books()
-                .annotate(rating_avg=Avg("ratings__score"))
-                .order_by("-created_at")
-                )
-
-
-class PublicBookDetailView(RetrieveAPIView):
-    serializer_class = BookDetailSerializer
-    lookup_field = "pk"
-
-    def get_queryset(self):
-        return Book.public_books().annotate(rating_avg=Avg("ratings__score"))
-        
+       
 class RatingListCreateView(ListCreateAPIView):
     serializer_class = RatingSerializer
     permission_classes = [IsAuthenticated]
@@ -52,7 +35,6 @@ class BookListView(ListView):
     template_name = "explore.html"
     context_object_name = "books"
     paginate_by = 1
-    ordering = ["-created_at"]
 
     def get_queryset(self):
         return Book.public_books().annotate(rating=Avg("ratings__score")).order_by("-created_at")
@@ -140,7 +122,6 @@ class BookUploadView(LoginRequiredMixin, CreateView):
     template_name = "books/upload_book.html"
     fields = ["title", "author", "description", "file", "cover",
               "license_type", "license_detail", "rights_declaration"]
-    success_url = reverse_lazy("books:explore")
 
     def form_valid(self, form):
         form.instance.uploaded_by = self.request.user
@@ -191,6 +172,10 @@ def moderation_detail(request, pk):
 
         if action == "approve":
             book.approve(reviewer=request.user, comment=comment)
+            if book.uploaded_by:
+                Notification.objects.create(recipient=book.uploaded_by,
+                    message=f"Your book '{book.title}' has been approved and is now public.",book=book)
+            
             messages.success(request, f"'{book.title}' has been approved.")
             return redirect("books:pending-books")
 
@@ -199,6 +184,9 @@ def moderation_detail(request, pk):
                 messages.error(request, "A reason is required to reject a book.")
             else:
                 book.reject(reviewer=request.user, comment=comment)
+                if book.uploaded_by:
+                    Notification.objects.create(recipient=book.uploaded_by,
+                        message=f"Your book '{book.title}' has been rejected. Reviewer's message: {comment}",book=book)
                 messages.success(request, f"'{book.title}' has been rejected.")
                 return redirect("books:pending-books")
 

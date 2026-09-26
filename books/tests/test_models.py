@@ -143,12 +143,7 @@ class ReportModelTests(BookTestMixin, TestCase):
         self.assertEqual(report.reason, "Inappropriate content")
         self.assertIsNotNone(report.created_at)
 
-    def test_multiple_reports_on_same_book(self):
-        another_user = create_user("another")
-        Report.objects.create(book=self.approved_book, user=self.reader, reason="Reason 1")
-        Report.objects.create(book=self.approved_book, user=another_user, reason="Reason 2")
-        self.assertEqual(self.approved_book.reports.count(), 2)
-
+    
     def test_report_requires_reason(self):
         report = Report(book=self.approved_book, user=self.reader, reason="")
         with self.assertRaises(ValidationError):

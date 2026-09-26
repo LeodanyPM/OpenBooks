@@ -21,13 +21,11 @@ def validate_book_file_size(value):
 def book_file_path(instance, filename):
     """
     Saves files with a unique name. 
-    Example: media/books_file/a1b2c3d4.pdf
+    Example: books_file/<uuid>.pdf
     """
     ext = os.path.splitext(filename)[1].lower()
     if ext not in (".pdf", ".epub"):
         ext = ".bin"
-
-    user_id = instance.uploaded_by_id or "unassigned"
     unique_name = f"{uuid.uuid4().hex}{ext}"
 
     return f"books_file/{unique_name}"
@@ -87,10 +85,7 @@ class Book(models.Model):
 
     def can_view(self, user):
         """
-        Access control. 
-        - Approved books are visible to everyone. 
-        - Pending or rejected books are visible to their owner. 
-        - They are also visible to staff or users in the Reviewers group.
+        
         """
         if self.is_public():
             return True
@@ -99,6 +94,21 @@ class Book(models.Model):
         if self.uploaded_by_id == user.id:
             return True
         return user.is_staff or user.groups.filter(name="Reviewers").exists()
+        
+    def can_view(self, user):
+        """
+        Access control. 
+        - Approved books are visible to everyone. 
+        - Pending or rejected books are visible to their owner. 
+        - They are also visible to staff or users  reviewers.
+        """
+        if self.is_public():
+            return True
+        if not user or not user.is_authenticated:
+            return False
+        if self.uploaded_by_id == user.id:
+            return True
+        return user.is_reviewer()
 
     def approve(self, reviewer, comment=""):
         self.status = self.Status.APPROVED
