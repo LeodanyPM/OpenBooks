@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = showMoreBtn.dataset.query;
 
         showMoreBtn.disabled = true;
-        showMoreBtn.textContent = "Cargando...";
+        showMoreBtn.textContent = "Loading...";
         
         let fetchUrl;
         if (query) {fetchUrl = `?q=${encodeURIComponent(query)}&page=${nextPage}`;} 
@@ -38,6 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => {
             console.error(error);
             showMoreBtn.disabled = false;
-            showMoreBtn.textContent = "Reintentar";
+            showMoreBtn.textContent = "Retry";
         });});
 });

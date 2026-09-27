@@ -53,7 +53,7 @@ class SearchResultsListView(ListView):
         query = self.request.GET.get("q", "").strip()
         if not query:
             return Book.objects.none()
-        return Book.public_books().filter(Q(title__icontains=query) | Q(author__icontains=query)).order_by("-created_at")
+        return Book.public_books().filter(Q(title__icontains=query) | Q(author__icontains=query)).annotate(rating=Avg("ratings__score")).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

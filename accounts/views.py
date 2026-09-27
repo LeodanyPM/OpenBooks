@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.db.models import Avg
 from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Case, When, IntegerField
@@ -16,7 +17,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        public_books = Book.objects.filter(uploaded_by=self.request.user, status=Book.Status.APPROVED).order_by("-created_at")
+        public_books = Book.objects.filter(uploaded_by=self.request.user, status=Book.Status.APPROVED).annotate(rating=Avg("ratings__score")).order_by("-created_at")
         non_public_books = self.get_non_public_books()
         context.update({ "public_books": public_books, "non_public_books": non_public_books,
             "public_count": public_books.count(), "non_public_count": non_public_books.count()})
