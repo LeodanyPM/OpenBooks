@@ -28,5 +28,5 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             When(status=Book.Status.REPORTED, then=1),
             When(status=Book.Status.REJECTED, then=2),
             output_field=IntegerField())
-        return Book.objects.filter(uploaded_by=self.request.user).exclude(status=Book.Status.APPROVED).annotate(status_order=status_order) \
-            .order_by("status_order", "-created_at")
+        return (Book.objects.filter(uploaded_by=self.request.user).exclude(status=Book.Status.APPROVED).annotate(status_order=status_order)
+            .order_by("status_order", "-created_at"))

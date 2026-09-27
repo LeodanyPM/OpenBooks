@@ -16,7 +16,7 @@ MAX_BOOK_FILE_MB = 20
 def validate_book_file_size(value):
     max_size = MAX_BOOK_FILE_MB * 1024 * 1024
     if value.size > max_size:
-        raise ValidationError(f"El archivo no puede superar {MAX_BOOK_FILE_MB} MB.")
+        raise ValidationError(f"The file cannot exceed {MAX_BOOK_FILE_MB} MB.")
 
 def book_file_path(instance, filename):
     """
@@ -35,7 +35,7 @@ def book_file_path(instance, filename):
 class Book(models.Model):
     class Status(models.TextChoices):
         PENDING = "P", "Pending"
-        APPROVED = "A", "Aproved"
+        APPROVED = "A", "Approved"
         REJECTED = "R", "Rejected"
         REPORTED = "E", "Reported"
 
@@ -50,14 +50,14 @@ class Book(models.Model):
 
     file = models.FileField("Archive", upload_to=book_file_path,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "epub"]), validate_book_file_size],
-        help_text="Onli PDF or ePub.")
+        help_text="Only PDF or ePub.")
     cover = models.ImageField("Cover", upload_to="covers/", null=True, blank=True)
     license_type = models.CharField("License", max_length=2, choices=License.choices)
     license_detail = models.CharField("License details", max_length=200, blank=True, help_text="Example: CC BY-NC 4.0")
     rights_declaration = models.TextField("Statement of Rights", blank=True, help_text="Mandatory for original works.")
 
     status = models.CharField("State", max_length=1, choices=Status.choices, default=Status.PENDING)
-    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="uploaded_books", verbose_name="Subido por" )
+    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="uploaded_books", verbose_name="Uploaded by" )
     reviewed_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="reviewed_books", 
                 verbose_name="Reviewed by")
     reviewed_at = models.DateTimeField("Revision date", null=True, blank=True)
@@ -82,19 +82,7 @@ class Book(models.Model):
     @classmethod
     def public_books(cls):
         return cls.objects.filter(status=cls.Status.APPROVED)
-
-    def can_view(self, user):
-        """
-        
-        """
-        if self.is_public():
-            return True
-        if not user or not user.is_authenticated:
-            return False
-        if self.uploaded_by_id == user.id:
-            return True
-        return user.is_staff or user.groups.filter(name="Reviewers").exists()
-        
+           
     def can_view(self, user):
         """
         Access control. 
@@ -128,7 +116,7 @@ class Book(models.Model):
         super().clean()
 
         if not self.license_type:
-            raise ValidationError({"license_type": "Selecciona una licencia."})
+            raise ValidationError({"license_type": "Select a license."})
         if self.license_type == self.License.ORIGINAL:
             if not self.rights_declaration:
                 raise ValidationError({"rights_declaration": (
@@ -162,7 +150,7 @@ class Book(models.Model):
 class Rating(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="ratings")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="book_ratings")
-    score = models.PositiveSmallIntegerField("Punctuation", 
+    score = models.PositiveSmallIntegerField("Score", 
             validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.TextField("Comment", blank=True)
     created_at = models.DateTimeField( "Created", auto_now_add=True)

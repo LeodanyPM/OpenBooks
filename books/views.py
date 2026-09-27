@@ -1,5 +1,5 @@
 from django.db.models import Avg, Q
-from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404, render, redirect
@@ -45,7 +45,6 @@ class BookListView(ListView):
         return [self.template_name]
         
 class SearchResultsListView(ListView):
-    model = Book
     context_object_name = "books"
     template_name = "books/search_results.html"
     paginate_by = 1
@@ -86,7 +85,7 @@ class ReportCreateView(CreateAPIView):
     permission_classes = [IsAuthenticated]
     
     def perform_create(self, serializer):
-        book = Book.objects.get(pk=self.kwargs["pk"])
+        book = get_object_or_404(Book, pk=self.kwargs["pk"])
         
         if not book.is_public():
             raise PermissionDenied("You can only report public books.")
@@ -144,9 +143,6 @@ class PendingBooksListView(LoginRequiredMixin, ListView):
     context_object_name = "books"
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return self.handle_no_permission()
-
         if not request.user.is_reviewer():
             return HttpResponseForbidden("You do not have permission to access the moderation panel.")
         return super().dispatch(request, *args, **kwargs)
