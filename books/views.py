@@ -29,6 +29,9 @@ class RatingListCreateView(ListCreateAPIView):
             raise PermissionDenied("You can only rate public books.")
         if book.uploaded_by == self.request.user:
             raise PermissionDenied("You cannot rate your own book.")
+        if Rating.objects.filter(book=book, user=self.request.user).exists():
+            raise PermissionDenied("You have already rated this book.")
+
         serializer.save(book=book, user=self.request.user)
                 
 class BookListView(ListView):
