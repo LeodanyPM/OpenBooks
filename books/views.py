@@ -37,7 +37,7 @@ class RatingListCreateView(ListCreateAPIView):
 class BookListView(ListView):
     template_name = "explore.html"
     context_object_name = "books"
-    paginate_by = 1
+    paginate_by = 8
 
     def get_queryset(self):
         return Book.public_books().annotate(rating=Avg("ratings__score")).order_by("-created_at")
@@ -50,7 +50,7 @@ class BookListView(ListView):
 class SearchResultsListView(ListView):
     context_object_name = "books"
     template_name = "books/search_results.html"
-    paginate_by = 1
+    paginate_by = 8
 
     def get_queryset(self):
         query = self.request.GET.get("q", "").strip()

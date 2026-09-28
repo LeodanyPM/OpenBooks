@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone
 
-# Validators and routes #
+# Validators and path #
 
 MAX_BOOK_FILE_MB = 20
 
