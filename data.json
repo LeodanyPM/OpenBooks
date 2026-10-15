@@ -1,0 +1,2642 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "accounts",
+    "model": "customuser"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "books",
+    "model": "book"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "books",
+    "model": "rating"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "books",
+    "model": "report"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "notifications",
+    "model": "notification"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9mclj9znnbchy5i2u29vtg1tt47gkoyw",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSHlJeDSvd9ABpiRqoGktCvjv0uTLnR7zzn3zQJsawlbxyXMmV2YYKffLUJ6Yt1BfkC9N55aXZc58l3hB-381jK-rof7d1Cgl1ETSiLUCNIoIJuNUwK8MzaTN5Zk8vo8Ja3VcFwWxggkH5O3bhqFluzzBfu5N8I:1xHPb4:GWBN8szpdN9bz9Ha6yRq-H7cpmAhRK-uurcRminX6AA",
+    "expire_date": "2026-10-29T17:50:30.370Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "f7kdc6u4bdozkmo2loqwg8uerf38ldbi",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSHlJeDSvd9ABpiRqoGktCvjv0uTLnR7zzn3zQJsawlbxyXMmV2YYKffLUJ6Yt1BfkC9N55aXZc58l3hB-381jK-rof7d1Cgl1ETSiLUCNIoIJuNUwK8MzaTN5Zk8vo8Ja3VcFwWxggkH5O3bhqFluzzBfu5N8I:1wtYWg:RFL6gnDckIQhGvEVkijvbl4pYdyGmo4RdEVa_TO4fiQ",
+    "expire_date": "2026-08-24T22:31:22.942Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kb46zdafckehcedti65r9o9ovz0gkp9o",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQBf-FsyGwBQoevfsNBHZBqgaS0p6M_64kPejpJTOT92I-7Fvxe0-rX4idmWanXxYDPlIdgu6h3hrHVrd1iXwk_LCdXxul5-Vo_w5K6GXcqihnNFmPyWIKSZIlZRHFFwiYrCCdrQNB0qBDBWRczHMCiiCzZe8P5q44AQ:1xBjE7:4dT9CNDQ6pJXE5TrLiNKsPGl3w951sdJBuiia5_Q3k4",
+    "expire_date": "2026-10-14T01:35:19.863Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qtpb6tfljvonlyttv9hxo8s9fu5vurmd",
+  "fields": {
+    "session_data": ".eJxVjLsOAiEUBf-F2hDecC3t9xsIcEFWDSTLbmX8d0OyhbZnZs6b-HDs1R8jb35FciWSXH63GNIztwnwEdq909Tbvq2RToWedNClY37dTvfvoIZRZ61jLsUJjWiiRGVcKNpIa0Ek1M4qQCMEs0aAgZAkzxa44imyDFEyTj5f6Kg3Wg:1xBjCY:-xQvSFwGA4Hu9uECVTwKL2J3oinTvF-DY2M4HQszZOc",
+    "expire_date": "2026-10-14T01:33:42.419Z"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "accounts",
+      "customuser"
+    ],
+    "codename": "add_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "accounts",
+      "customuser"
+    ],
+    "codename": "change_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "accounts",
+      "customuser"
+    ],
+    "codename": "delete_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "accounts",
+      "customuser"
+    ],
+    "codename": "view_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Valoración",
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "codename": "add_rating"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Valoración",
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "codename": "change_rating"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Valoración",
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "codename": "delete_rating"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Valoración",
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "codename": "view_rating"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Book",
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "codename": "add_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Book",
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "codename": "change_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Book",
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "codename": "delete_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Book",
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "codename": "view_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add report",
+    "content_type": [
+      "books",
+      "report"
+    ],
+    "codename": "add_report"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change report",
+    "content_type": [
+      "books",
+      "report"
+    ],
+    "codename": "change_report"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete report",
+    "content_type": [
+      "books",
+      "report"
+    ],
+    "codename": "delete_report"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view report",
+    "content_type": [
+      "books",
+      "report"
+    ],
+    "codename": "view_report"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add notification",
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "codename": "add_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change notification",
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "codename": "change_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete notification",
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "codename": "delete_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view notification",
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "codename": "view_notification"
+  }
+},
+{
+  "model": "accounts.customuser",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$T202fzNtcFB5e9RXLIHrCi$kUj+t2jx2nZtszPLRgttzxpsTLkzjv39hhYF4uomS5c=",
+    "last_login": "2026-10-15T17:50:30.294Z",
+    "is_superuser": true,
+    "username": "l",
+    "first_name": "",
+    "last_name": "",
+    "email": "l@email.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-08-10T22:30:55.550Z",
+    "role": "lector",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.customuser",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$fPmxkE5sa1pj1vxNqrpBw1$tjVyzXih64XkD6E5DYBaYjAUxHxcaOOsr4KVSJ5WyCw=",
+    "last_login": "2026-09-30T00:19:38.713Z",
+    "is_superuser": false,
+    "username": "foo",
+    "first_name": "",
+    "last_name": "",
+    "email": "foo@email.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-08-17T22:16:58Z",
+    "role": "reader",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.customuser",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$llqJU7XNy2azmPf9U3BNOc$saLRGtR4UhpsSoVLiD0rhGluihPlUMFEvkPMkzP/FWM=",
+    "last_login": "2026-09-30T01:33:42.351Z",
+    "is_superuser": false,
+    "username": "bar",
+    "first_name": "",
+    "last_name": "",
+    "email": "bar@email.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-08-27T20:00:41.422Z",
+    "role": "reader",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.customuser",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$XVnOlQXTP322N32Spr27fH$id7i/pwIOAy9CjNJoy5I0GmwgmI8s0FpMhCFeSTphJI=",
+    "last_login": "2026-09-26T14:40:00.155Z",
+    "is_superuser": false,
+    "username": "fred",
+    "first_name": "",
+    "last_name": "",
+    "email": "fred@email.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-26T14:39:50.462Z",
+    "role": "reader",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.customuser",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$FlFfuzR8rVR01wg0KcGhY0$rtMHT4VQos4Gq2XHc4pGhRlmlTYn/HyVtwxDvHJalzM=",
+    "last_login": "2026-09-30T01:35:19.795Z",
+    "is_superuser": true,
+    "username": "OpenBook",
+    "first_name": "",
+    "last_name": "",
+    "email": "openbook@email.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-09-28T15:55:10.773Z",
+    "role": "reader",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "books.book",
+  "pk": 3,
+  "fields": {
+    "title": "Test Epub",
+    "author": "OpenBook",
+    "description": "Book used to test the platform's functionality",
+    "file": "books_file/a7ae015d6b8e411cb98df6b48f3b0cbc.epub",
+    "cover": "covers/cover.png",
+    "license_type": "OR",
+    "license_detail": "CC BY-NC 4.0",
+    "rights_declaration": "I am the original author of this work and hold all rights to share it on this platform.",
+    "status": "A",
+    "uploaded_by": [
+      "OpenBook"
+    ],
+    "reviewed_by": [
+      "l"
+    ],
+    "reviewed_at": "2026-09-13T17:05:58Z",
+    "reviewer_comment": "",
+    "created_at": "2026-09-02T20:49:25.679Z",
+    "updated_at": "2026-09-28T16:01:09.084Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 11,
+  "fields": {
+    "title": "Test Book 1",
+    "author": "OpenBook",
+    "description": "Book used to test the platform's functionality",
+    "file": "books_file/703084027ab1478e88ffbe33cb1d96f6.pdf",
+    "cover": "covers/cover_11.png",
+    "license_type": "OR",
+    "license_detail": "",
+    "rights_declaration": "I am the original author of this work and hold all rights to share it on this platform.",
+    "status": "A",
+    "uploaded_by": [
+      "OpenBook"
+    ],
+    "reviewed_by": [
+      "l"
+    ],
+    "reviewed_at": "2026-09-05T18:08:49Z",
+    "reviewer_comment": "",
+    "created_at": "2026-09-04T16:15:16.413Z",
+    "updated_at": "2026-09-29T23:21:59.040Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 12,
+  "fields": {
+    "title": "Test Book 2",
+    "author": "OpenBook",
+    "description": "Book used to test the platform's functionality",
+    "file": "books_file/f8d58feb7acc469da47a2a3e8c5fa365.pdf",
+    "cover": "covers/cover_12.png",
+    "license_type": "OR",
+    "license_detail": "",
+    "rights_declaration": "I am the original author of this work and hold all rights to share it on this platform.",
+    "status": "A",
+    "uploaded_by": [
+      "OpenBook"
+    ],
+    "reviewed_by": [
+      "l"
+    ],
+    "reviewed_at": "2026-09-05T18:06:40Z",
+    "reviewer_comment": "",
+    "created_at": "2026-09-04T22:03:03.335Z",
+    "updated_at": "2026-09-29T23:13:42.021Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 13,
+  "fields": {
+    "title": "Test Book 3",
+    "author": "OpenBook",
+    "description": "Book used to test the platform's functionality",
+    "file": "books_file/405e35f8422649c6b88b680483ad2ada.pdf",
+    "cover": "covers/cover_13.png",
+    "license_type": "OR",
+    "license_detail": "",
+    "rights_declaration": "I am the original author of this work and hold all rights to share it on this platform.",
+    "status": "A",
+    "uploaded_by": [
+      "OpenBook"
+    ],
+    "reviewed_by": [
+      "l"
+    ],
+    "reviewed_at": "2026-09-28T20:05:38.730Z",
+    "reviewer_comment": "",
+    "created_at": "2026-09-11T20:43:11.071Z",
+    "updated_at": "2026-09-29T23:17:35.375Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 14,
+  "fields": {
+    "title": "Frankenstein",
+    "author": "Mary Shelley",
+    "description": "The classic Gothic novel about a scientist who creates a sapient creature in an unorthodox scientific experiment.",
+    "file": "books_file/3d764046ca314a57a68ec589ac6f9124.epub",
+    "cover": "covers/frankenstein.jpg",
+    "license_type": "PD",
+    "license_detail": "",
+    "rights_declaration": "",
+    "status": "A",
+    "uploaded_by": [
+      "bar"
+    ],
+    "reviewed_by": [
+      "l"
+    ],
+    "reviewed_at": null,
+    "reviewer_comment": "",
+    "created_at": "2026-09-28T16:05:47.456Z",
+    "updated_at": "2026-09-28T16:05:47.456Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 15,
+  "fields": {
+    "title": "The Metamorphosis",
+    "author": "Franz Kafka",
+    "description": "The story of Gregor Samsa, a traveling salesman who wakes up one morning transformed into a giant insect.",
+    "file": "books_file/5682f777e28d4dc9925dd6dc52673de1.epub",
+    "cover": "covers/La_Metamorfosis.jpg",
+    "license_type": "PD",
+    "license_detail": "",
+    "rights_declaration": "",
+    "status": "A",
+    "uploaded_by": [
+      "foo"
+    ],
+    "reviewed_by": [
+      "OpenBook"
+    ],
+    "reviewed_at": null,
+    "reviewer_comment": "",
+    "created_at": "2026-09-28T16:18:45.246Z",
+    "updated_at": "2026-09-28T16:21:16.513Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 16,
+  "fields": {
+    "title": "Don Quijote de la Mancha",
+    "author": "Miguel de Cervantes",
+    "description": "La obra cumbre de la literatura española y universal. Narra las aventuras de Alonso Quijano, un hidalgo que enloquece leyendo libros de caballerías y decide salir al mundo como caballero andante bajo el nombre de Don Quijote, acompañado por su fiel escudero, Sancho Panza.",
+    "file": "books_file/5eb6b428a0fe4d368955af0230d09e48.epub",
+    "cover": "covers/Don_Quijote_de_la_Mancha.png",
+    "license_type": "PD",
+    "license_detail": "",
+    "rights_declaration": "",
+    "status": "A",
+    "uploaded_by": [
+      "fred"
+    ],
+    "reviewed_by": [
+      "l"
+    ],
+    "reviewed_at": null,
+    "reviewer_comment": "",
+    "created_at": "2026-09-28T16:47:06.471Z",
+    "updated_at": "2026-09-28T16:47:06.471Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 17,
+  "fields": {
+    "title": "Alice in Wonderland",
+    "author": "Lewis Carroll",
+    "description": "\"Alice's Adventures in Wonderland\" by Lewis Carroll is a children's novel published in 1865. When a curious girl named Alice spots a White Rabbit with a pocket watch, she tumbles down a rabbit hole into an extraordinary fantasy world filled with peculiar anthropomorphic creatures. This pioneering work of literary nonsense plays with logic and language, creating a whimsical tale that delights both children and adults.",
+    "file": "books_file/6019183672d94394adbbb121c9d6fd4b.epub",
+    "cover": "covers/3809243430796983855_cover.jpg",
+    "license_type": "PD",
+    "license_detail": "",
+    "rights_declaration": "",
+    "status": "A",
+    "uploaded_by": [
+      "bar"
+    ],
+    "reviewed_by": [
+      "OpenBook"
+    ],
+    "reviewed_at": null,
+    "reviewer_comment": "",
+    "created_at": "2026-09-28T20:02:43.872Z",
+    "updated_at": "2026-09-28T20:03:00.804Z"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 20,
+  "fields": {
+    "title": "The Picture of Dorian Gray",
+    "author": "Oscar Wilde",
+    "description": "\"The Picture of Dorian Gray\" by Oscar Wilde is a philosophical fiction and Gothic horror novel published in 1890. \r\nWhen a beautiful young man wishes that his portrait would age instead of himself, his desire becomes terrifyingly real.\r\n As Dorian pursues a life of pleasure and moral corruption, he remains eternally youthful while his painted image transforms \r\n into a horrifying record of his sins. Wilde explores beauty, morality, and the dangerous influence of hedonistic philosophy in t\r\n his tale of vanity and its consequences.",
+    "file": "books_file/1f72882ff42449d8a4f444a3ee461a73.epub",
+    "cover": "covers/el_retrato_de_dorian_gray.jpg",
+    "license_type": "PD",
+    "license_detail": "",
+    "rights_declaration": "",
+    "status": "A",
+    "uploaded_by": [
+      "bar"
+    ],
+    "reviewed_by": [
+      "OpenBook"
+    ],
+    "reviewed_at": "2026-09-30T01:35:45.502Z",
+    "reviewer_comment": "Thanks for sharing.",
+    "created_at": "2026-09-30T01:35:03.643Z",
+    "updated_at": "2026-09-30T01:35:45.502Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 11,
+  "fields": {
+    "book": 3,
+    "user": [
+      "l"
+    ],
+    "score": 5,
+    "comment": "Very Good",
+    "created_at": "2026-09-04T16:38:06.379Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 12,
+  "fields": {
+    "book": 11,
+    "user": [
+      "l"
+    ],
+    "score": 4,
+    "comment": "Very Good",
+    "created_at": "2026-09-04T16:39:45.325Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 14,
+  "fields": {
+    "book": 12,
+    "user": [
+      "l"
+    ],
+    "score": 3,
+    "comment": "Really Good",
+    "created_at": "2026-09-04T22:04:07.949Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 15,
+  "fields": {
+    "book": 3,
+    "user": [
+      "bar"
+    ],
+    "score": 4,
+    "comment": "Great",
+    "created_at": "2026-09-08T19:16:13.530Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 17,
+  "fields": {
+    "book": 12,
+    "user": [
+      "fred"
+    ],
+    "score": 5,
+    "comment": "I loved it.",
+    "created_at": "2026-09-26T16:28:20.951Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 18,
+  "fields": {
+    "book": 13,
+    "user": [
+      "l"
+    ],
+    "score": 4,
+    "comment": "Great",
+    "created_at": "2026-09-28T20:08:42.024Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 19,
+  "fields": {
+    "book": 14,
+    "user": [
+      "OpenBook"
+    ],
+    "score": 5,
+    "comment": "Thank you!",
+    "created_at": "2026-09-28T20:23:24.909Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 20,
+  "fields": {
+    "book": 15,
+    "user": [
+      "OpenBook"
+    ],
+    "score": 5,
+    "comment": "Thanks !!!",
+    "created_at": "2026-09-28T20:23:50.255Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 21,
+  "fields": {
+    "book": 16,
+    "user": [
+      "OpenBook"
+    ],
+    "score": 4,
+    "comment": "Thank you very much!!!",
+    "created_at": "2026-09-28T20:24:19.659Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 22,
+  "fields": {
+    "book": 17,
+    "user": [
+      "OpenBook"
+    ],
+    "score": 5,
+    "comment": "Wonderfull !!!!",
+    "created_at": "2026-09-28T20:24:42.722Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 24,
+  "fields": {
+    "book": 15,
+    "user": [
+      "bar"
+    ],
+    "score": 5,
+    "comment": "I really enjoyed this book.",
+    "created_at": "2026-09-30T01:34:12.849Z"
+  }
+},
+{
+  "model": "books.rating",
+  "pk": 25,
+  "fields": {
+    "book": 17,
+    "user": [
+      "l"
+    ],
+    "score": 4,
+    "comment": "Great",
+    "created_at": "2026-10-15T17:52:03.317Z"
+  }
+},
+{
+  "model": "books.report",
+  "pk": 12,
+  "fields": {
+    "book": 12,
+    "user": [
+      "OpenBook"
+    ],
+    "reason": "This book does not comply with copyright regulations.",
+    "created_at": "2026-09-29T23:13:41.948Z"
+  }
+},
+{
+  "model": "notifications.notification",
+  "pk": 11,
+  "fields": {
+    "recipient": [
+      "l"
+    ],
+    "message": "QWDSDD",
+    "is_read": true,
+    "created_at": "2026-09-08T21:09:52.786Z",
+    "book": 3
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-08-18T22:44:27.523Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "1",
+    "object_repr": "Test Book 1 by OpenBook",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-08-18T22:45:43.658Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2026-08-18T22:46:48.312Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "1",
+    "object_repr": "l → Test Book 1 by OpenBook (4)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2026-08-18T22:47:30.219Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "2",
+    "object_repr": "l → Test Book 2 by OpenBook (5)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2026-08-19T16:59:21.084Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Detalle de licencia\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2026-08-19T16:59:51.008Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Licencia\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2026-08-28T16:02:25.819Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "3",
+    "object_repr": "bar → Test Book 1 by OpenBook (5)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2026-08-28T16:02:25.819Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "2",
+    "object_repr": "l → Test Book 2 by OpenBook (5)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2026-08-28T16:02:25.819Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "1",
+    "object_repr": "l → Test Book 1 by OpenBook (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2026-08-28T16:04:51.475Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "4",
+    "object_repr": "l → Test Book 1 by OpenBook (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2026-08-28T16:09:21.333Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "5",
+    "object_repr": "l → Test Book 1 by OpenBook (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2026-08-28T16:12:32.902Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "6",
+    "object_repr": "l → Test Book 1 by OpenBook (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2026-08-28T16:52:47.557Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "8",
+    "object_repr": "l → Test Book 2 by OpenBook (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2026-08-28T16:54:50.453Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "9",
+    "object_repr": "l → Test Book 2 by OpenBook (5)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2026-09-02T17:03:48.839Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2026-09-02T17:04:34.150Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2026-09-02T17:05:34.657Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "report"
+    ],
+    "object_id": "2",
+    "object_repr": "Report on Test Book 2 by l",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2026-09-02T17:05:34.658Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "report"
+    ],
+    "object_id": "1",
+    "object_repr": "Report on Test Book 2 by l",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2026-09-02T20:49:25.717Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2026-09-02T20:56:17.393Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "4",
+    "object_repr": "AAA by OpenBook",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2026-09-02T21:10:49.128Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "4",
+    "object_repr": "AAA by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2026-09-02T21:11:33.240Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archivo\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2026-09-02T23:08:58.668Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "6",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2026-09-02T23:10:04.138Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "5",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2026-09-02T23:10:29.844Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "5",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2026-09-03T19:19:13.901Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "5",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2026-09-03T19:22:00.547Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "7",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Subido por\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2026-09-03T19:23:07.935Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "7",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2026-09-03T19:26:20.792Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "8",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Cover\", \"Estado\", \"Subido por\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2026-09-03T19:34:28.971Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "8",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2026-09-03T19:37:49.069Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "9",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Subido por\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2026-09-03T20:11:23.985Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "9",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2026-09-03T20:15:11.559Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "10",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Subido por\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2026-09-04T16:13:22.743Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Cover\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2026-09-04T16:14:19.875Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2026-09-04T16:14:19.875Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "1",
+    "object_repr": "Test Book 1 by OpenBook",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2026-09-04T16:16:27.366Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "11",
+    "object_repr": "Test Book 1 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Subido por\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2026-09-04T22:03:37.576Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "12",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Subido por\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2026-09-05T14:55:48.123Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "object_id": "1",
+    "object_repr": "Reviewer",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2026-09-05T14:57:24.377Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "accounts",
+      "customuser"
+    ],
+    "object_id": "2",
+    "object_repr": "foo",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2026-09-05T15:11:37.864Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "accounts",
+      "customuser"
+    ],
+    "object_id": "2",
+    "object_repr": "foo",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2026-09-05T15:11:46.143Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "object_id": "1",
+    "object_repr": "Reviewer",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2026-09-05T16:33:38.504Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "12",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2026-09-05T16:33:53.043Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "11",
+    "object_repr": "Test Book 1 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2026-09-05T18:10:42.856Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "10",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Licencia\", \"Detalle de licencia\", \"Estado\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2026-09-05T18:11:20.214Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "10",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2026-09-05T18:11:46.277Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Licencia\", \"Detalle de licencia\", \"Estado\", \"Revisado por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2026-09-05T18:21:15.606Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Comentario del revisor\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2026-09-05T18:21:29.269Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "10",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Comentario del revisor\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2026-09-06T15:35:29.374Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "1",
+    "object_repr": "Notification for foo: AAAA",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2026-09-06T15:35:41.899Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "1",
+    "object_repr": "Notification for foo: AAAA",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is read\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2026-09-06T15:36:19.123Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "1",
+    "object_repr": "Notification for foo: AAAA",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2026-09-06T16:22:15.317Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "2",
+    "object_repr": "Notification for l: asdds",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2026-09-06T16:35:16.826Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "3",
+    "object_repr": "Notification for l: dfggg",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2026-09-06T16:38:45.612Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "4",
+    "object_repr": "Notification for l: adffdg",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2026-09-08T20:43:27.038Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "5",
+    "object_repr": "Notification for l: asdfsdgg",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2026-09-08T20:43:50.451Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "6",
+    "object_repr": "Notification for l: sefgsdg",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2026-09-08T20:43:58.806Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "7",
+    "object_repr": "Notification for l: sdfgg",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2026-09-08T20:44:04.174Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "8",
+    "object_repr": "Notification for l: SFSAFF",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2026-09-08T20:44:32.475Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "9",
+    "object_repr": "Notification for l: asdASFFFGG\r\nSRSFJJKU\r\nDFKhASD\r\nAWDASK\r\nASDMdf\r\nASD",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2026-09-08T21:09:47.171Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "10",
+    "object_repr": "Notification for l: adsfgggg",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2026-09-08T21:09:52.787Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "11",
+    "object_repr": "Notification for l: QWDSDD",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2026-09-08T21:10:00.176Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "12",
+    "object_repr": "Notification for l: QWDf",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2026-09-08T21:10:05.830Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "13",
+    "object_repr": "Notification for l: WEDFF",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2026-09-08T21:10:11.374Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "14",
+    "object_repr": "Notification for l: WEDFf",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2026-09-08T21:10:18.431Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "15",
+    "object_repr": "Notification for l: WEDSFFF EWFdf",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2026-09-08T21:13:01.351Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "16",
+    "object_repr": "Notification for l: ASDasd",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2026-09-08T21:13:08.761Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "notifications",
+      "notification"
+    ],
+    "object_id": "17",
+    "object_repr": "Notification for l: ADFASF beqrtty srtrtu sft",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 69,
+  "fields": {
+    "action_time": "2026-09-09T19:36:14.616Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "rating"
+    ],
+    "object_id": "13",
+    "object_repr": "l → Test Book 3 by OpenBook (4)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 70,
+  "fields": {
+    "action_time": "2026-09-11T20:44:43.885Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Subido por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 71,
+  "fields": {
+    "action_time": "2026-09-11T20:44:53.286Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "12",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Subido por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 72,
+  "fields": {
+    "action_time": "2026-09-11T20:45:03.860Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "11",
+    "object_repr": "Test Book 1 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Subido por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2026-09-11T21:06:46.535Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Revisado por\", \"Comentario del revisor\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 74,
+  "fields": {
+    "action_time": "2026-09-24T20:09:01.115Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "13",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Estado\", \"Subido por\", \"Revisado por\", \"Comentario del revisor\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 75,
+  "fields": {
+    "action_time": "2026-09-26T18:32:57.790Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "12",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Subido por\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 76,
+  "fields": {
+    "action_time": "2026-09-26T21:51:03.969Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "13",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"State\", \"Reviewed by\", \"Reviewer's comment\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 77,
+  "fields": {
+    "action_time": "2026-09-26T21:53:01.426Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "13",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"State\", \"Reviewed by\", \"Reviewer's comment\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 78,
+  "fields": {
+    "action_time": "2026-09-28T15:53:41.294Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "11",
+    "object_repr": "Test Book 1 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\", \"License\", \"License details\", \"Statement of Rights\", \"Uploaded by\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 79,
+  "fields": {
+    "action_time": "2026-09-28T15:57:11.497Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "11",
+    "object_repr": "Test Book 1 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Statement of Rights\", \"Uploaded by\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 80,
+  "fields": {
+    "action_time": "2026-09-28T15:58:10.351Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "12",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 81,
+  "fields": {
+    "action_time": "2026-09-28T15:58:37.567Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "12",
+    "object_repr": "Test Book 2 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"License\", \"Statement of Rights\", \"State\", \"Uploaded by\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 82,
+  "fields": {
+    "action_time": "2026-09-28T15:59:18.884Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "13",
+    "object_repr": "Test Book 3 by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Archive\", \"License\", \"Statement of Rights\", \"Uploaded by\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 83,
+  "fields": {
+    "action_time": "2026-09-28T16:01:09.086Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Test Epub by OpenBook",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"License\", \"Statement of Rights\", \"Uploaded by\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 84,
+  "fields": {
+    "action_time": "2026-09-28T16:05:47.458Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "14",
+    "object_repr": "Frankenstein by Mary Shelley",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 85,
+  "fields": {
+    "action_time": "2026-09-28T16:18:45.248Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "15",
+    "object_repr": "La Metamorfosis by Franz Kafka",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 86,
+  "fields": {
+    "action_time": "2026-09-28T16:21:16.515Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "15",
+    "object_repr": "The Metamorphosis by Franz Kafka",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Title\", \"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 87,
+  "fields": {
+    "action_time": "2026-09-28T16:47:06.472Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "16",
+    "object_repr": "Don Quijote de la Mancha by Miguel de Cervantes",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 88,
+  "fields": {
+    "action_time": "2026-09-28T20:02:43.896Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "17",
+    "object_repr": "Alice in Wonderland by Lewis Carroll",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 89,
+  "fields": {
+    "action_time": "2026-09-28T20:03:00.806Z",
+    "user": [
+      "l"
+    ],
+    "content_type": [
+      "books",
+      "book"
+    ],
+    "object_id": "17",
+    "object_repr": "Alice in Wonderland by Lewis Carroll",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"State\"]}}]"
+  }
+}
+]
