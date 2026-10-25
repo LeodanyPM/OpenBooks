@@ -11,8 +11,8 @@ WORKDIR /code
 
 # Install dependencies
 COPY ./requirements.txt .
-RUN pip config --user set global.index-url http://nexus.prod.uci.cu/repository/pypi-proxy/simple/ \
- && pip config --user set global.trusted-host nexus.prod.uci.cu
+#RUN pip config --user set global.index-url http://nexus.prod.uci.cu/repository/pypi-proxy/simple/ \
+# && pip config --user set global.trusted-host nexus.prod.uci.cu
 RUN pip install \
     --timeout 120 \
     --retries 10 \
